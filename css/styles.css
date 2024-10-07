@@ -5,18 +5,18 @@ body {
     align-items: center; /* Center vertically */
 }
 
-.container {
-    background-color: white; /* White background for the container */
-    padding: 20px; /* Padding inside the container */
+.ctn-form {
+    background-color: white; /* White background for the ctn-form */
+    padding: 20px; /* Padding inside the ctn-form */
     border-radius: 5px; /* Optional: rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-    width: 80%; /* Set a width for the container */
-    max-width: 600px; /* Optional: maximum width */
+    width: 100%;
+    max-width: 600px; 
     display: flex;
     flex-direction: column; /* {{ edit_1 }} */
     justify-content: flex-start; /* Align items at the start vertically */
-    align-items: stretch; /* Stretch items to fill the container width */
-    margin-left: 240px; /* Add margin to the left to accommodate the fixed navigation */
+    align-items: stretch; /* Stretch items to fill the ctn-form width */
+    margin: 20px 50px;
 }
 
 .ctn-button{
@@ -27,7 +27,7 @@ body {
     gap: 10px;
 }
 
-.container .h1{
+.ctn-form .h1{
     align-items: center;
 }
 
@@ -51,6 +51,7 @@ body {
 }
 
 .ctn-nav {
+    margin-top: 100px;
     border-radius: 5px; /* Optional: rounded corners */
     padding: 10px;
     position: fixed; /* Keep the navigation fixed */
@@ -60,4 +61,21 @@ body {
     background-color: white; /* Background color for the navigation */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
     z-index: 1000; /* Ensure it stays above other content */
+}
+
+.header {
+    position: fixed; /* Keep the header fixed */
+    top: 0; /* Position at the top */
+    left: 0; /* Align to the left */
+    right: 0; /* Stretch to the right */
+    background-color: white; /* Background color for the header */
+    padding: 10px; /* Padding for the header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for the header */
+    z-index: 1001; /* Ensure it stays above other content */
+}
+
+.main-content {
+    margin-top: 80px; /* Add margin to prevent overlap with the header */
+    display: flex; /* {{ edit_2 }} */
+    width: 100vh;
 }
