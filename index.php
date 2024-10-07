@@ -10,9 +10,21 @@
 <body class="bg-light">
     
     <div class="container mt-3" style="margin: 20px 50px;">
-        <h1>Form Project</h1> <br>
+        <div class="ctn-nav"> <!-- {{ edit_1 }} -->
+            <div class="navigation">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#title1">Title 1</a></li>
+                    <li><a href="#title2">Title 2</a></li>
+                    <li><a href="#title3">Title 3</a></li>
+                    <li><a href="#title4">Title 4</a></li>
+                    <li><a href="#title5">Title 5</a></li>
+                </ul>
+            </div>
+        </div>
+        <h1 id="title1">Form Project</h1> <br>
         <form>
-            
+            <h4 id="title1">Title 1</h4>
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Textbox 1">
             </div>
@@ -25,6 +37,8 @@
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Textbox 4">
             </div>
+
+            <h4 id="title2">Title 2</h4>
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Textbox 5">
             </div>
