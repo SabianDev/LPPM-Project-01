@@ -1,0 +1,31 @@
+body {
+    background-color: #f8f9fa; /* Light gray background */
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.container {
+    background-color: white; /* White background for the container */
+    padding: 20px; /* Padding inside the container */
+    border-radius: 5px; /* Optional: rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+    width: 80%; /* Set a width for the container */
+    max-width: 600px; /* Optional: maximum width */
+    display: flex;
+    flex-direction: column; /* {{ edit_1 }} */
+    justify-content: flex-start; /* Align items at the start vertically */
+    align-items: stretch; /* Stretch items to fill the container width */
+}
+
+.ctn-button{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+    gap: 10px;
+}
+
+.container .h1{
+    align-items: center;
+}
