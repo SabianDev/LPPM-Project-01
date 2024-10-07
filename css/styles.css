@@ -16,6 +16,7 @@ body {
     flex-direction: column; /* {{ edit_1 }} */
     justify-content: flex-start; /* Align items at the start vertically */
     align-items: stretch; /* Stretch items to fill the container width */
+    margin-left: 240px; /* Add margin to the left to accommodate the fixed navigation */
 }
 
 .ctn-button{
@@ -28,4 +29,35 @@ body {
 
 .container .h1{
     align-items: center;
+}
+
+.navigation {
+    width: 200px; /* Set a fixed width for the navigation */
+    margin-right: 20px; /* Space between navigation and form */
+}
+
+.navigation ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+}
+
+.navigation a {
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Bootstrap primary color */
+}
+
+.navigation a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.ctn-nav {
+    border-radius: 5px; /* Optional: rounded corners */
+    padding: 10px;
+    position: fixed; /* Keep the navigation fixed */
+    top: 20px; /* Adjust top position */
+    left: 20px; /* Adjust left position */
+    width: 200px; /* Set a fixed width for the navigation */
+    background-color: white; /* Background color for the navigation */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+    z-index: 1000; /* Ensure it stays above other content */
 }
