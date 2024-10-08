@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- link css  -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- link icons  -->
+    <script src="https://kit.fontawesome.com/59784df54a.js" crossorigin="anonymous"></script>
+    <title>GitHub login page</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="github-logo">
+            <img src="E:/unc/github-login-page-master/images/logopiksi.png" alt="Logo Piksi" style="width: 100px; height: auto;"> <!-- Perbesar ukuran gambar -->
+        </div>
+        <h1 class="github-head">
+           Welcome To LPPM
+        </h1>
+        <div class="login-wrapper">
+            <div class="input-box">
+                <div class="input-label">Username</div>
+                <input type="text" placeholder="Enter your username" required>
+            </div>
+
+            <div class="input-box">
+                <div class="input-label">
+                    <span>Password</span>
+                    <a href="#">Forgot password?</a>
+                </div>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <i class="fa fa-eye toggle-password" id="togglePassword"></i>
+                </div>
+            </div>
+
+            <button class="submit-btn" type="submit">
+                Submit
+            </button>
+ 
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+
+</html>
