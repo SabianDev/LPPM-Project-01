@@ -1,3 +1,8 @@
+:root {
+    --white: #ffffff;
+    --blue: #1e90ff;
+  }
+
 body {
     background-color: #f8f9fa; /* Light gray background */
     display: flex; /* Enable flexbox */
@@ -5,77 +10,276 @@ body {
     align-items: center; /* Center vertically */
 }
 
-.ctn-form {
-    background-color: white; /* White background for the ctn-form */
-    padding: 20px; /* Padding inside the ctn-form */
-    border-radius: 5px; /* Optional: rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-    width: 100%;
-    max-width: 600px; 
-    display: flex;
-    flex-direction: column; /* {{ edit_1 }} */
-    justify-content: flex-start; /* Align items at the start vertically */
-    align-items: stretch; /* Stretch items to fill the ctn-form width */
-    margin: 20px 50px;
-}
 
-.ctn-button{
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center ;
-    gap: 10px;
-}
-
-.ctn-form .h1{
-    align-items: center;
-}
-
-.navigation {
-    width: 200px; /* Set a fixed width for the navigation */
-    margin-right: 20px; /* Space between navigation and form */
-}
-
-.navigation ul {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0; /* Remove padding */
-}
-
-.navigation a {
-    text-decoration: none; /* Remove underline */
-    color: #007bff; /* Bootstrap primary color */
-}
-
-.navigation a:hover {
-    text-decoration: underline; /* Underline on hover */
-}
-
-.ctn-nav {
-    margin-top: 100px;
-    border-radius: 5px; /* Optional: rounded corners */
-    padding: 10px;
-    position: fixed; /* Keep the navigation fixed */
-    top: 20px; /* Adjust top position */
-    left: 20px; /* Adjust left position */
-    width: 200px; /* Set a fixed width for the navigation */
-    background-color: white; /* Background color for the navigation */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-    z-index: 1000; /* Ensure it stays above other content */
-}
+/* tagHEADER */
 
 .header {
+    background-color: var(--blue);
+    color: white;
     position: fixed; /* Keep the header fixed */
     top: 0; /* Position at the top */
     left: 0; /* Align to the left */
     right: 0; /* Stretch to the right */
-    background-color: white; /* Background color for the header */
-    padding: 10px; /* Padding for the header */
+    padding: 10px 20px; /* Padding for the header */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for the header */
     z-index: 1001; /* Ensure it stays above other content */
+    display: flex; /* Enable flexbox for header */
+    justify-content: space-between; /* Space between left and right */
+    align-items: center; /* Center items vertically */
 }
 
-.main-content {
-    margin-top: 80px; /* Add margin to prevent overlap with the header */
-    display: flex; /* {{ edit_2 }} */
-    width: 100vh;
+.header-left {
+    flex: 1; /* Allow left section to take available space */
 }
+
+.header-right {
+    margin-left: 20px; /* Space between left and right sections */
+    font-weight: 500; /* Optional: make the text slightly bolder */
+}
+
+.header h1{
+    font-weight: 700;
+}
+
+.header h1 a {
+    color: inherit;
+    text-decoration: none; /* Remove underline */
+}
+
+.header h1 a:hover {
+    color: lightskyblue;
+}
+
+/* tagHOME */
+.sidenav {
+    margin-top: 70px;
+    height: 100%; /* Full height */
+    width: 300px; /* Fixed width */
+    position: fixed; /* Stay in place */
+    top: 0; /* Stay at the top */
+    left: 0; /* Align to the left */
+    background-color: #f8f9fa; /* Light background */
+    padding: 10px; /* Padding inside the sidenav */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.sidenav-btn {
+    border-top: 1px solid lightgray; /* Top border with thickness of 5px */
+    border-bottom: 1px solid lightgray; /* Bottom border with thickness of 5px */
+    font-weight: 500;
+    display: block; /* Make the links block elements */
+    padding: 10px; /* Padding for the buttons */
+    color: #007bff; /* Button text color */
+    text-decoration: none; /* Remove underline */
+    margin-bottom: 10px; /* Space between buttons */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.sidenav-btn:hover {
+    background-color: #e9ecef; /* Background color on hover */
+    color: #0056b3; /* Text color on hover */
+}
+
+/* tagACCORDION */
+
+.accordion-button {
+    background-color: transparent; /* Background transparent */
+    color: #007bff; /* Text color */
+    font-weight: 500; /* Font weight */
+    border: none; /* Remove border */
+    padding: 10px; /* Padding for the button */
+    text-align: left; /* Align text to the left */
+    width: 100%; /* Full width */
+}
+
+.accordion-button:hover {
+    background-color: #e9ecef; /* Background color on hover */
+    color: #0056b3; /* Text color on hover */
+}
+
+.accordion-button:focus {
+    box-shadow: none; /* Remove focus outline */
+}
+
+.accordion-body {
+    max-height: 300px; /* Set a maximum height for the accordion body */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 0; /* Remove padding for the body */
+}
+
+.accordion-body .sidenav-btn {
+    border-top: 1px solid lightgray; /* Top border with thickness of 5px */
+    border-bottom: 1px solid lightgray; /* Bottom border with thickness of 5px */
+    margin: 0; /* Remove margin */
+}
+
+.sidenav-item-btn {
+    border: 1px solid lightgray; /* Border abu-abu dengan ketebalan 1px */
+    background-color: white; /* Warna latar belakang putih */
+    color: #007bff; /* Warna teks */
+    padding: 10px; /* Padding untuk tombol */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    border-radius: 5px; /* Sudut melengkung */
+    display: block; /* Membuat tombol menjadi elemen blok */
+    margin-bottom: 10px; /* Jarak bawah */
+}
+
+.sidenav-item-btn:hover {
+    background-color: #e9ecef; /* Warna latar belakang saat hover */
+    color: #0056b3; /* Warna teks saat hover */
+}
+
+/* tagPARENT-FORM */
+.master-form-container {
+    /* background-color: violet; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.master-form-container h2{
+    font-size: 25px;
+    font-weight: 700;
+}
+
+    /* tagMAINCTN */
+
+    .main-content {
+        /* background-color: blue; */
+        margin-top: 80px; /* Add margin to prevent overlap with the header */
+        display: flex;
+        width: 40vw;
+        height: 100vh;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    /* tagFORM */
+    .bold {
+        font-weight: 500;
+    }
+
+    .form-title {
+        background-color: white; /* White background for the ctn-form */
+        padding: 20px;
+        border-radius: 5px; /* Optional: rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+        width: 100%;
+        max-width: 600px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Align items at the start vertically */
+        align-items: stretch; /* Stretch items to fill the ctn-form width */
+        margin-bottom: 20px;
+    }
+
+    .ctn-form {
+        background-color: white; /* White background for the ctn-form */
+        padding: 20px;
+        border-radius: 5px; /* Optional: rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+        width: 100%;
+        max-width: 600px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Align items at the start vertically */
+        align-items: stretch; /* Stretch items to fill the ctn-form width */
+        margin-bottom: 50px;
+    }
+
+    .ctn-form h1{
+        align-items: center;
+        font-weight: 700;
+    }
+
+    .ctn-button{
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center ;
+        gap: 10px;
+    }
+
+    
+    .ctn-form-button {
+        display: flex; /* Enable flexbox */
+        justify-content: center; /* Center buttons horizontally */
+        gap: 10px; /* Space between buttons */
+        margin-top: 20px; /* Optional: space above the button container */
+    }
+
+    /* tagNAVIGASI */
+
+    .ctn-nav {
+        margin-top: 100px;
+        border-radius: 5px; /* Optional: rounded corners */
+        padding: 10px;
+        position: fixed; /* Keep the navigation fixed */
+        top: 20px; /* Adjust top position */
+        left: 20px; /* Adjust left position */
+        background-color: white; /* Background color for the navigation */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+        z-index: 1000; /* Ensure it stays above other content */
+
+    }
+
+    .navigation {
+        width: 200px; /* Set a fixed width for the navigation */
+    }
+
+    .navigation ul {
+        list-style-type:circle; /* Remove bullet points */
+        padding: 0; /* Remove padding */
+        margin-left: 30px;
+    }
+
+    .navigation a {
+        text-decoration: none; /* Remove underline */
+        color: #007bff; /* Bootstrap primary color */
+    }
+
+    .navigation a:hover {
+        text-decoration: underline; /* Underline on hover */
+    }
+
+    .btn-nav-kembali{
+        width: 100%;
+    }
+
+
+    /* tagINFOPANEL */
+
+    .info-panel {
+        margin-top: 40px; /* Jarak dari atas untuk menghindari overlap dengan header */
+        width: 300px; /* Lebar panel */
+        position: fixed; /* Tetap di tempat */
+        right: 20px; /* Jarak dari kanan */
+        top: 80px; /* Jarak dari atas */
+        background-color: white; /* Warna latar belakang putih */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Bayangan halus */
+        z-index: 1000; /* Pastikan tetap di atas konten lainnya */
+    }
+    
+    .info-accordion-button {
+        font-size: 20px;
+        background-color: var(--blue); /* Warna latar belakang tombol */
+        color: white; /* Warna teks */
+        font-weight: 700; /* Font weight */
+        border: none; /* Remove border */
+        padding: 10px; /* Padding for the button */
+        text-align: left; /* Align text to the left */
+        width: 100%; /* Full width */
+    }
+
+    .info-accordion-button:hover {
+        background-color: #0056b3; /* Warna latar belakang saat hover */
+    }
+
+    .info-accordion-body{
+        margin: 10px;
+        max-height: 300px; /* Set a maximum height for the accordion body */
+        overflow-y: auto; /* Enable vertical scrolling */
+        padding: 0; /* Remove padding for the body */
+    }
+
+    
