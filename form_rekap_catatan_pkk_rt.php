@@ -268,7 +268,7 @@
                     </div>
                         <div class="ctn-form-button">
                             <button type="button" class="btn btn-secondary back">Kembali</button>
-                            <button type="submit" class="btn btn-secondary next">next</button>
+                            <button type="button" class="btn btn-secondary next">Next</button>
                         </div>
                     </div>
                 </div>
@@ -290,7 +290,7 @@
                         <br>
                         <div class="ctn-form-button">
                             <button type="button" class="btn btn-secondary back">Kembali</button>
-                            <button type="submit" class="btn btn-secondary next">next</button>
+                            <button type="button" class="btn btn-secondary next">Next</button>
                         </div>
                     </div>
                 </div>
@@ -319,7 +319,7 @@
                         </div>
                         <div class="ctn-form-button">
                             <button type="button" class="btn btn-secondary back">Kembali</button>
-                            <button type="submit" class="btn btn-secondary next">next</button>
+                            <button type="button" class="btn btn-secondary next">Next</button>
                         </div>
                     </div>
                 </div>
