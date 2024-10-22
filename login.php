@@ -19,7 +19,7 @@
                 </div>
                 <br>
                 <h1>Login</h1>
-                <input type="email" id="email" placeholder="Email">
+                <input type="text" id="email" placeholder="Username">
                 <input type="password" id="password" placeholder="Password">
                 <a href="#">Forget Your Password?</a>
                 <button type="submit">Sign In</button>

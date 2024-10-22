@@ -1,9 +1,104 @@
+<?php
+session_start(); // Memulai session
+include 'connect.php'; 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Cek apakah semua input yang diperlukan sudah diisi
+    $requiredFields = [
+        'kelompok', 'tahun', 'namaAnggota', 'statusPerkawinan', 
+        'jenisKelamin', 'tempatLahir', 'tanggalLahir', 'umur', 
+        'agama', 'pendidikan', 'pekerjaan', 'berkebutuhanKhusus', 
+        'pancasila', 'gotongRoyong', 'pendidikan', 'koperasi', 
+        'pangan', 'sandang', 'kesehatan', 'perencanaanSehat', 
+        'kriteriaRumah', 'jambanKeluarga', 'jumlahJamban', 
+        'sumberAir', 'tempatSampah'
+    ];
+    
+    $allFilled = true;
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            $allFilled = false;
+            break;
+        }
+    }
+
+    if (!$allFilled) {
+        echo "<script>alert('Silakan isi semua form yang diperlukan sebelum mengirim.');</script>";
+    } else {
+        // Ambil data dari form
+        $kelompokDasaWisma = $_POST['kelompok'];
+        $tahun = $_POST['tahun'];
+        $namaAnggotaKeluarga = $_POST['namaAnggota'];
+        $statusPerkawinan = $_POST['statusPerkawinan'];
+        $jenisKelamin = $_POST['jenisKelamin'];
+        $tempatLahir = $_POST['tempatLahir'];
+        $tanggalLahir = $_POST['tanggalLahir'];
+        $umur = $_POST['umur'];
+        $agama = $_POST['agama'];
+        $pendidikan = $_POST['pendidikan'];
+        $pekerjaan = $_POST['pekerjaan'];
+        $berkebutuhanKhusus = $_POST['berkebutuhanKhusus'];
+        $penghayatanPengamalanPancasila = $_POST['pancasila'];
+        $gotongRoyong = $_POST['gotongRoyong'];
+        $pendidikanKeterampilan = $_POST['pendidikan'];
+        $pengembanganKehBerkoperasi = $_POST['koperasi'];
+        $pangan = $_POST['pangan'];
+        $sandang = $_POST['sandang'];
+        $kesehatan = $_POST['kesehatan'];
+        $perencanaanSehat = $_POST['perencanaanSehat'];
+        $kriteriaRumah = $_POST['kriteriaRumah'];
+        $jambanKeluarga = $_POST['jambanKeluarga'];
+        $jumlahJambanKeluarga = $_POST['jumlahJamban'];
+        $sumberAir = $_POST['sumberAir'];
+        $memilikiTempatSampah = $_POST['tempatSampah'];
+
+        $sql = "INSERT INTO rekap_catatan_per_dasawisma (
+                    kelompok_dasa_wisma, tahun, nama_anggota_keluarga, status_perkawinan, jenis_kelamin, 
+                    tempat_lahir, tanggal_lahir, umur, agama, pendidikan, pekerjaan, berkebutuhan_khusus, 
+                    penghayatan_pengamalan_pancasila, gotong_royong, pendidikan_keterampilan, 
+                    pengembangan_keh_berkoperasi, pangan, sandang, kesehatan, perencanaan_sehat, 
+                    kriteria_rumah, jamban_keluarga, jumlah_jamban_keluarga, sumber_air, memiliki_tempat_sampah
+                ) VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                )";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param(
+            "sssssssssssssssssssssssss",
+            $kelompokDasaWisma, $tahun, $namaAnggotaKeluarga, $statusPerkawinan, $jenisKelamin,
+            $tempatLahir, $tanggalLahir, $umur, $agama, $pendidikan, $pekerjaan, $berkebutuhanKhusus,
+            $penghayatanPengamalanPancasila, $gotongRoyong, $pendidikanKeterampilan,
+            $pengembanganKehBerkoperasi, $pangan, $sandang, $kesehatan, $perencanaanSehat,
+            $kriteriaRumah, $jambanKeluarga, $jumlahJambanKeluarga, $sumberAir, $memilikiTempatSampah
+        );
+
+        if ($stmt->execute()) {
+            $_SESSION['success'] = true; // Set session untuk notifikasi
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+        $conn->close();
+    }
+}
+
+if (isset($_SESSION['success'])) { // Cek session untuk notifikasi
+    echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            });
+          </script>";
+    unset($_SESSION['success']); // Hapus session setelah ditampilkan
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEMPLATE : FORM</title>
+    <title>FORM : REKAP DATA CATATAN PER-DASAWISMA</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -56,7 +151,7 @@
                 <h2>CATATAN DATA KEGIATAN WARGA KELOMPOK DASA WISMA KECAMATAN BATUNUNGGAL KOTA BANDUNG PROVINSI JAWA BARAT </h2>
             </div>
             
-            <form>
+            <form method="POST" action="">
                 
                 <!-- FORM 1 -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -64,17 +159,17 @@
                     <div class="row">
                         <div class="mb-3">
                                 <label for="kelompok" class="form-label bold">Kelompok Dasa Wisma</label>
-                                <input type="text" class="form-control" id="kelompok" placeholder="Masukkan Kelompok Dasa Wisma">
+                                <input type="text" class="form-control" id="kelompok" name="kelompok" placeholder="Masukkan Kelompok Dasa Wisma">
                             </div>
 
                             <div class="mb-3">
                                 <label for="tahun" class="form-label bold">Tahun</label>
-                                <input type="text" class="form-control" id="tahun" placeholder="Masukkan Tahun">
+                                <input type="text" class="form-control" id="tahun" name="tahun" placeholder="Masukkan Tahun">
                             </div>
 
                             <div class="mb-3">
                                 <label for="namaAnggota" class="form-label bold">Nama Anggota Keluarga</label>
-                                <input type="text" class="form-control" id="namaAnggota" placeholder="Masukkan Nama Anggota Keluarga">
+                                <input type="text" class="form-control" id="namaAnggota" name="namaAnggota" placeholder="Masukkan Nama Anggota Keluarga">
                             </div>
 
                             <div class="mb-3">
@@ -111,17 +206,17 @@
 
                             <div class="mb-3">
                                 <label for="tempatLahir" class="form-label bold">Tempat Lahir</label>
-                                <input type="text" class="form-control" id="tempatLahir" placeholder="Masukkan Tempat Lahir">
+                                <input type="text" class="form-control" id="tempatLahir" name="tempatLahir" placeholder="Masukkan Tempat Lahir">
                             </div>
 
                             <div class="mb-3">
                                 <label for="tanggalLahir" class="form-label bold">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggalLahir">
+                                <input type="date" class="form-control" id="tanggalLahir" name="tanggalLahir">
                             </div>
 
                             <div class="mb-3">
                                 <label for="umur" class="form-label bold">Umur</label>
-                                <input type="text" class="form-control" id="umur" placeholder="Masukkan Umur">
+                                <input type="text" class="form-control" id="umur" name="umur" placeholder="Masukkan Umur">
                             </div>
 
                             <div class="mb-3">
@@ -382,7 +477,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label bold">Jumlah Jamban Keluarga</label>
-                            <input type="number" class="form-control" id="jumlahJamban" placeholder="Jumlah Jamban Keluarga">
+                            <input type="number" class="form-control" id="jumlahJamban" name="jumlahJamban" placeholder="Jumlah Jamban Keluarga">
                         </div>
                         <div class="mb-3">
                             <label class="form-label bold">Sumber Air</label>
@@ -484,7 +579,31 @@
             });
 
             showSection(currentSectionIndex);
+
+            // Redirect to another page when the modal is closed
+            const successModal = document.getElementById('successModal');
+            successModal.addEventListener('hidden.bs.modal', function () {
+                window.location.href = 'view_rekap_catatan_per_dasawisma.php';
+            });
         });
     </script>
+
+    <!-- Modal Notifikasi -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Notifikasi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Data berhasil disimpan!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

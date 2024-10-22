@@ -1,9 +1,82 @@
+<?php
+session_start(); // Pastikan session dimulai
+
+// Sertakan file koneksi database
+include 'connect.php'; 
+// Tangani pengiriman form
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Cek apakah semua input yang diperlukan sudah diisi
+    $requiredFields = [
+        'kegiatan', 'keterangan', 'pemilihan_sampah', 'lubang_biopori', 
+        'tanaman_obat', 'kampung_berkebun', 'buruan_sae', 
+        'sumur_resapan', 'loseda', 'industri_makanan', 
+        'industri_minuman', 'industri_kerajinan', 'industri_rajut'
+    ];
+    
+    $allFilled = true;
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            $allFilled = false;
+            break;
+        }
+    }
+
+    if (!$allFilled) {
+        echo "<script>alert('Silakan isi semua form yang diperlukan sebelum mengirim.');</script>";
+    } else {
+        // Ambil data dari form
+        $kegiatan = $_POST['kegiatan'];
+        $keterangan = $_POST['keterangan'];
+        $pemilihan_sampah = $_POST['pemilihan_sampah'];
+        $lubang_biopori = $_POST['lubang_biopori'];
+        $tanaman_obat_keluarga = $_POST['tanaman_obat'];
+        $kampung_berkebun = $_POST['kampung_berkebun'];
+        $buruan_sae = $_POST['buruan_sae'];
+        $sumur_resapan = $_POST['sumur_resapan'];
+        $loseda = $_POST['loseda'];
+        $industri_makanan = $_POST['industri_makanan'];
+        $industri_minuman = $_POST['industri_minuman'];
+        $industri_kerajinan = $_POST['industri_kerajinan'];
+        $industri_rajut = $_POST['industri_rajut'];
+
+        $sql = "INSERT INTO kegiatan_warga (kegiatan, keterangan, pemilihan_sampah, lubang_biopori, tanaman_obat_keluarga, kampung_berkebun, buruan_sae, sumur_resapan, loseda, industri_makanan, industri_minuman, industri_kerajinan, industri_rajut)
+        VALUES ('$kegiatan', '$keterangan', '$pemilihan_sampah', '$lubang_biopori', '$tanaman_obat_keluarga', '$kampung_berkebun', '$buruan_sae', '$sumur_resapan', '$loseda', '$industri_makanan', '$industri_minuman', '$industri_kerajinan', '$industri_rajut')";
+
+        if ($conn->query($sql) === TRUE) {
+            // Simpan pesan notifikasi ke session
+            $_SESSION['success_message'] = "Data berhasil disimpan!";
+            // Redirect ke halaman yang sama untuk menampilkan modal
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+
+$conn->close();
+
+// Tampilkan pesan notifikasi jika ada
+if (isset($_SESSION['success_message'])) {
+    echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+                document.getElementById('successModal').addEventListener('hidden.bs.modal', function () {
+                    window.location.href = 'view_kegiatan_warga.php'; // Redirect setelah modal ditutup
+                });
+            });
+          </script>";
+    unset($_SESSION['success_message']); // Hapus pesan setelah ditampilkan
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEGIATAN WARGA</title>
+    <title>FORM : DATA KEGIATAN WARGA</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -56,7 +129,7 @@
                 <h2>KEGIATAN WARGA KECAMATAN BATUNUNGGAL KOTA BANDUNG PROVINSI JAWA BARAT</h2>
             </div>
             
-            <form>
+            <form method="POST" action="" id="kegiatanForm">
                 
                 <!-- FORM 1 -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -96,9 +169,9 @@
                             </div>
                         </div>
                         <div class="col-md-12 mt-5 ">
-                            <label for="keterangan" class="form-label bold">Keterangan nama kegiatan yang diikuti.</label>
-                            <input type="text" class="form-control" id="keterangan" placeholder="Isi...">
-                        </div>
+    <label for="keterangan" class="form-label bold">Keterangan nama kegiatan yang diikuti.</label>
+    <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Isi...">
+</div>
                         <!-- ... existing code ... -->
                         <br>
                         <div class="ctn-form-button">
@@ -332,7 +405,30 @@
             });
 
             showSection(currentSectionIndex);
+
+            // Tambahkan validasi sebelum mengirim form
+            document.getElementById('kegiatanForm').addEventListener('submit', function(e) {
+           
+            });
         });
     </script>
+
+    <!-- Modal Notifikasi -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Notifikasi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Data berhasil disimpan!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

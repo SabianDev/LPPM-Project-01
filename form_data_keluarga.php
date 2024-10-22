@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEMPLATE : FORM</title>
+    <title>FORM : DATA KELUARGA</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -22,6 +22,113 @@
         $formTarget1 = "form-1";
         $formTarget2 = "form-2";
     ?>
+    <?php
+    session_start(); // Mulai session di bagian atas
+
+    // Tampilkan pesan notifikasi jika ada
+    if (isset($_SESSION['success_message'])) {
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showSuccessModal(); // Panggil fungsi untuk menampilkan modal
+                });
+              </script>";
+        unset($_SESSION['success_message']); // Hapus pesan setelah ditampilkan
+    }
+
+    // Fungsi untuk menampilkan modal notifikasi
+    function showSuccessModal() {
+        echo "<script>
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+                document.getElementById('successModal').addEventListener('hidden.bs.modal', function () {
+                    window.location.href = 'data_kegiatan_warga.php'; // Redirect setelah modal ditutup
+                });
+              </script>";
+    }
+
+    // ... existing code ...
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Cek apakah semua input yang diperlukan sudah diisi
+        $requiredFields = [
+            'kelurahan', 'rw', 'rt', 'dasadisma', 'kepalarumahtangga', 
+            'noreg', 'anggotakeluarga', 'statusdalamkeluarga', 
+            'statusdalamperkawinan', 'jeniskelamin', 'tempatlahir', 
+            'tanggalLahir', 'umur', 'pendidikan', 'pekerjaan', 
+            'kelumur', 'makananPokok', 'jumlahJaminan', 'sumberAir', 
+            'kriteriaRumah', 'up2k', 'usahaKesling'
+        ];
+        
+        $allFilled = true;
+        foreach ($requiredFields as $field) {
+            if (empty($_POST[$field])) {
+                $allFilled = false;
+                break;
+            }
+        }
+
+        if (!$allFilled) {
+            echo "<script>alert('Silakan isi semua form yang diperlukan sebelum mengirim.');</script>";
+        } else {
+            // Ambil data dari form
+            $kelurahan = $_POST['kelurahan'];
+            $rw = $_POST['rw'];
+            $rt = $_POST['rt'];
+            $dasa_wisma = $_POST['dasadisma'];
+            $nama_kepala_rumah_tangga = $_POST['kepalarumahtangga'];
+            $no_reg = $_POST['noreg'];
+            $nama_anggota_keluarga = $_POST['anggotakeluarga'];
+            $status_dalam_keluarga = $_POST['statusdalamkeluarga'];
+            $status_dalam_perkawinan = $_POST['statusdalamperkawinan'];
+            $jenis_kelamin = $_POST['jeniskelamin'];
+            $tempat_lahir = $_POST['tempatlahir'];
+            $tanggal_lahir = $_POST['tanggalLahir'];
+            $umur = $_POST['umur'];
+            $pendidikan_terakhir = $_POST['pendidikan'];
+            $pekerjaan = $_POST['pekerjaan'];
+            $kelompok_umur = $_POST['kelumur'];
+            $bumil = isset($_POST['bumil']) ? 'Ya' : 'Tidak';
+            $ibu_menyusui = isset($_POST['ibumenyusui']) ? 'Ya' : 'Tidak';
+            $pasangan_subur = isset($_POST['pasangansubur']) ? 'Ya' : 'Tidak';
+            $wanita_usia_subur = isset($_POST['wanitausiasubur']) ? 'Ya' : 'Tidak';
+            $apa_3_buta = isset($_POST['buta']) ? 'Ya' : 'Tidak';
+            $makanan_pokok_sehari_hari = $_POST['makananPokok'];
+            $mempunyai_jaminan_keluarga = isset($_POST['jaminanKeluarga']) ? 'Ya' : 'Tidak';
+            $jumlah_jaminan_keluarga = $_POST['jumlahJaminan'];
+            $sumber_air_keluarga = $_POST['sumberAir'];
+            $memiliki_tempat_pembuangan_sampah = isset($_POST['pembuanganSampah']) ? 'Ya' : 'Tidak';
+            $memiliki_saluran_pembuangan_air_limbah = isset($_POST['pembuanganAirLimbah']) ? 'Ya' : 'Tidak';
+            $menempel_stiker_p4k = isset($_POST['stiker']) ? 'Ya' : 'Tidak';
+            $kriteria_rumah = $_POST['kriteriaRumah'];
+            $aktifitas_up2k = isset($_POST['up2k_ya']) ? 'Ya' : 'Tidak';
+            $aktifitas_usaha_kesling = isset($_POST['usahaKesling']) ? 'Ya' : 'Tidak';
+
+            // Koneksi ke database
+            include 'connect.php';
+
+            // Query untuk memasukkan data
+            $sql = "INSERT INTO data_keluarga (kelurahan, rw, rt, dasa_wisma, nama_kepala_rumah_tangga, no_reg, nama_anggota_keluarga, status_dalam_keluarga, status_dalam_perkawinan, jenis_kelamin, tempat_lahir, tanggal_lahir, umur, pendidikan_terakhir, pekerjaan, kelompok_umur, bumil, ibu_menyusui, pasangan_subur, wanita_usia_subur, apa_3buta, makanan_pokok_sehari_hari, mempunyai_jaminan_keluarga, jumlah_jaminan_keluarga, sumber_air_keluarga, tempat_pembuangan_sampah, saluran_pembuangan_air_limbah, stiker_p4k, kriteria_rumah, aktifitas_up2k, aktifitas_usaha_kesling) 
+            VALUES ('$kelurahan', '$rw', '$rt', '$dasa_wisma', '$nama_kepala_rumah_tangga', '$no_reg', '$nama_anggota_keluarga', '$status_dalam_keluarga', '$status_dalam_perkawinan', '$jenis_kelamin', '$tempat_lahir', '$tanggal_lahir', '$umur', '$pendidikan_terakhir', '$pekerjaan', '$kelompok_umur', '$bumil', '$ibu_menyusui', '$pasangan_subur', '$wanita_usia_subur', '$apa_3_buta', '$makanan_pokok_sehari_hari', '$mempunyai_jaminan_keluarga', '$jumlah_jaminan_keluarga', '$sumber_air_keluarga', '$memiliki_tempat_pembuangan_sampah', '$memiliki_saluran_pembuangan_air_limbah', '$menempel_stiker_p4k', '$kriteria_rumah', '$aktifitas_up2k', '$aktifitas_usaha_kesling')";
+
+            if ($conn->query($sql) === TRUE) {
+                // Simpan pesan notifikasi ke session
+                $_SESSION['success_message'] = "Data berhasil disimpan!";
+                // Redirect setelah berhasil menyimpan data
+                echo "<script>
+                        alert('Data berhasil disimpan!'); 
+                        window.location.href = 'view_data_keluarga.php';
+                      </script>";
+                exit();
+            } else {
+                echo "<script>alert('Error: " . $conn->error . "');</script>"; // Menampilkan error jika ada
+            }
+            $conn->close();
+        }
+    }
+
+    
+    ?>
+
 </head>
 <body class="bg-light">
     
@@ -52,7 +159,7 @@
                 <h2>DATA KELUARGA KECAMATAN BATUNUNGGAL KOTA BANDUNG</h2>
             </div>
             
-            <form>
+            <form method="post" action="">
                 
                 <!-- FORM 1 -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -60,7 +167,7 @@
                     <div class="row">
                     <div class="mb-3">
                         <label for="kelurahan" class="form-label bold mt-3"><strong>Kelurahan</strong></label>
-                        <select class="form-select"" id="kelurahan">
+                        <select class="form-select"" id="kelurahan" name="kelurahan">
                             <option value="">Pilih</option>
                             <option value="Gumuruh">Gumuruh</option>
                             <option value="Binong">Binong</option>
@@ -74,7 +181,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="rw" class="form-label bold mt-3"><strong>RW</strong></label>
-                        <select class="form-select"" id="rw">
+                        <select class="form-select"" id="rw" name="rw">
                             <option value="">Pilih</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -95,7 +202,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="rt" class="form-label bold mt-3"><strong>RT</strong></label>
-                        <select class="form-select"" id="rt">
+                        <select class="form-select"" id="rt" name="rt">
                             <option value="">Pilih</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -115,20 +222,20 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="dasadisma" class="form-label bold mt-3"><strong>Dasa Disma</strong></label>
-                        <input type="text" class="form-control" id="dasadisma" placeholder="Jawaban Anda">
+                        <label for="dasadisma" class="form-label bold mt-3"><strong>Dasa Wisma</strong></label>
+                        <input type="text" class="form-control" id="dasadisma" name="dasadisma" placeholder="Jawaban Anda">
                     </div>
                     <div class="mb-3">
                         <label for="kepalarumahtangga" class="form-label bold mt-3"><strong>Nama Kepala Rumah Tangga</strong></label>
-                        <input type="text" class="form-control" id="kepalarumahtangga" placeholder="Jawaban Anda">
+                        <input type="text" class="form-control" id="kepalarumahtangga" name="kepalarumahtangga" placeholder="Jawaban Anda">
                     </div>
                     <div class="mb-3">
                         <label for="noreg" class="form-label bold mt-3"><strong>No. Reg (RW.RT.Dasa Wisma. No Rumah. No Urut KK. No Anggota Keluarga), Contoh: 01.03.003.05.01.03</strong></label>
-                        <input type="text" class="form-control" id="noreg" placeholder="Jawaban Anda">
+                        <input type="text" class="form-control" id="noreg" name="noreg" placeholder="Jawaban Anda">
                     </div>
                     <div class="mb-3">
                         <label for="anggotakeluarga" class="form-label bold mt-3"><strong>Nama Anggota Keluarga</strong></label>
-                        <input type="text" class="form-control" id="anggotakeluarga" placeholder="Jawaban Anda">
+                        <input type="text" class="form-control" id="anggotakeluarga" name="anggotakeluarga" placeholder="Jawaban Anda">
                     </div>
                     <div class="mb-3">
                         <label class="form-label bold mt-3"><strong>Status Dalam Keluarga</strong></label>
@@ -154,7 +261,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="statusdalamperkawinan" class="form-label bold mt-3"><strong>Status Dalam Perkawinan</strong></label>
-                        <select class="form-select"" id="statusdalamperkawinan">
+                        <select class="form-select"" id="statusdalamperkawinan" name="statusdalamperkawinan">
                             <option value="">Pilih</option>
                             <option value="menikah">Menikah</option>
                             <option value="belumenikah">Belum Menikah</option>
@@ -173,15 +280,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="tempatlahir" class="form-label bold mt-3"><strong>Tempat Lahir</strong></label>
-                        <input type="text" class="form-control" id="tempatlahir" placeholder="Jawaban Anda">
+                        <input type="text" class="form-control" id="tempatlahir" name="tempatlahir" placeholder="Jawaban Anda">
                     </div>
                     <div class="mb-3">
                         <label for="tanggalLahir" class="form-label bold mt-3"><strong>Tanggal Lahir</strong></label>
-                        <input type="date" class="form-control" id="tanggalLahir">
+                        <input type="date" class="form-control" id="tanggalLahir" name="tanggalLahir">
                     </div>
                     <div class="mb-3">
                         <label for="umur" class="form-label bold mt-3"><strong>Umur</strong></label>
-                        <input type="text" class="form-control" id="umur" placeholder="Jawaban Anda">
+                        <input type="text" class="form-control" id="umur" name="umur" placeholder="Jawaban Anda">
                     </div>
                     <div class="mb-3">
                         <label class="form-label bold mt-3"><strong>Pendidikan</strong></label>
@@ -464,17 +571,17 @@
                     <div class="mb-3">
                         <label class="form-label bold mt-3"><strong>10. Aktifitas UP2K</strong></label>
                             <div>
-                                <input type="radio" id="up2k_ya" name="up2k_ya" value="Ya">
-                                <label for="pdam">Ya</label>
+                                <input type="radio" id="up2k_ya" name="up2k" value="Ya">
+                                <label for="up2k_ya">Ya</label>
                             </div>
                             <div>
-                                <input type="radio" id="up2k_tidak" name="up2k_tidak" value="Tidak">
-                                <label for="sumur">Tidak</label>
+                                <input type="radio" id="up2k_tidak" name="up2k" value="Tidak">
+                                <label for="up2k_tidak">Tidak</label>
                             </div>
                             <div>
-                                <input type="radio" id="up2k_lainnya" name="sumberAir" value="Lainnya">
-                                <label for="sumberAirLainnya">Lainnya:</label>
-                                <input type="text" class="form-control" id="sumberAirLainnyaText" placeholder="Sebutkan Lainnya">
+                                <input type="radio" id="up2k_lainnya" name="up2k" value="Lainnya">
+                                <label for="up2k_lainnya">Lainnya:</label>
+                                <input type="text" class="form-control" id="up2k_lainnyaText" placeholder="Sebutkan Lainnya">
                             </div>
                     </div>
                     <div class="mb-3">
@@ -564,8 +671,28 @@
                 });
             });
 
+            // Validasi sebelum mengirim form
+            document.querySelector('form').addEventListener('submit', function(e) {
+                // Cek apakah semua input yang diperlukan sudah diisi
+                const requiredInputs = this.querySelectorAll('input[required], select[required]');
+                let allFilled = true;
+
+                requiredInputs.forEach(input => {
+                    if (!input.value) {
+                        allFilled = false;
+                    }
+                });
+
+                if (!allFilled) {
+                    e.preventDefault(); // Mencegah pengiriman form
+                    alert('Silakan isi semua form yang diperlukan sebelum mengirim.');
+                }
+            });
+
             showSection(currentSectionIndex);
         });
     </script>
+
+   
 </body>
 </html>

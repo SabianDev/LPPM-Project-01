@@ -1,9 +1,123 @@
+<?php
+session_start(); // Memulai session
+
+include 'connect.php'; // Menghubungkan ke database
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Cek apakah semua input yang diperlukan sudah diisi
+    $requiredFields = [
+        'kelurahan', 'pkk_rw', 'pkk_rt', 'pkk_dasa_wisma', 'nama_kk', 
+        'no_reg', 'jumlah_kk', 'total_laki_laki', 'total_perempuan', 
+        'balita_laki_laki', 'balita_perempuan', 'pasangan_usia_subur', 
+        'wanita_usia_subur', 'ibu_hamil', 'ibu_menyusui', 
+        'lansia', 'tiga_buta', 'berkebutuhan_khusus', 
+        'sehat_layak_huni', 'tempat_sampah', 'spal', 
+        'jamban', 'sumber_air', 'makanan_pokok', 
+        'kegiatan_up2k', 'pemanfaatan_tanah', 'industri_rumah', 
+        'kerja_bakti', 'keterangan'
+    ];
+    
+    $allFilled = true;
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            $allFilled = false;
+            break;
+        }
+    }
+
+    if (!$allFilled) {
+        echo "<script>alert('Silakan isi semua form yang diperlukan sebelum mengirim.');</script>";
+    } else {
+        // Ambil data dari form
+        $kelurahan = $_POST['kelurahan'];
+        $kelompok_pkk_rw = $_POST['pkk_rw'];
+        $kelompok_pkk_rt = $_POST['pkk_rt'];
+        $kelompok_pkk_dasa_wisma = $_POST['pkk_dasa_wisma'];
+        $tahun = $_POST['tahun'];
+        $no_reg = $_POST['no_reg'];
+        $nama_kepala_keluarga = $_POST['nama_kk'];
+        $jumlah_kk = $_POST['jumlah_kk'];
+        $total_laki_laki = $_POST['total_laki_laki'];
+        $total_perempuan = $_POST['total_perempuan'];
+        $balita_laki_laki = $_POST['balita_laki_laki'];
+        $balita_perempuan = $_POST['balita_perempuan'];
+        $pasangan_usia_subur = $_POST['pasangan_usia_subur'];
+        $wanita_usia_subur = $_POST['wanita_usia_subur'];
+        $ibu_hamil = $_POST['ibu_hamil'];
+        $ibu_menyusui = $_POST['ibu_menyusui'];
+        $lansia = $_POST['lansia'];
+        $tiga_buta = $_POST['tiga_buta'];
+        $berkebutuhan_khusus = $_POST['berkebutuhan_khusus'];
+        $sehat_dan_layak_huni = $_POST['sehat_layak_huni'];
+        $memiliki_tempat_pembuangan_sampah = $_POST['tempat_sampah'];
+        $memiliki_spal = $_POST['spal'];
+        $memiliki_jamban = $_POST['jamban'];
+        $sumber_air_keluarga = isset($_POST['sumber_air']) ? implode(',', $_POST['sumber_air']) : '';
+        $makanan_pokok = $_POST['makanan_pokok'];
+        $kegiatan_up2k = $_POST['kegiatan_up2k'];
+        $pemanfaatan_tanah = $_POST['pemanfaatan_tanah'];
+        $industri_rumah = $_POST['industri_rumah'];
+        $kerja_bakti = $_POST['kerja_bakti'];
+        $keterangan = $_POST['keterangan'];
+
+        // Query untuk memasukkan data ke dalam tabel
+        $query = "INSERT INTO data_per_dasawisma (
+            kelurahan, kelompok_pkk_rw, kelompok_pkk_rt, kelompok_pkk_dasa_wisma, tahun, no_reg, 
+            nama_kepala_keluarga, jumlah_kk, total_laki_laki, total_perempuan, balita_laki_laki, 
+            balita_perempuan, pasangan_usia_subur, wanita_usia_subur, ibu_hamil, ibu_menyusui, 
+            lansia, tiga_buta, berkebutuhan_khusus, sehat_dan_layak_huni, 
+            memiliki_tempat_pembuangan_sampah, memiliki_spal, memiliki_jamban, 
+            sumber_air_keluarga, makanan_pokok, kegiatan_up2k, pemanfaatan_tanah, 
+            industri_rumah, kerja_bakti, keterangan
+        ) VALUES (
+            '$kelurahan', '$kelompok_pkk_rw', '$kelompok_pkk_rt', '$kelompok_pkk_dasa_wisma', '$tahun', '$no_reg', 
+            '$nama_kepala_keluarga', '$jumlah_kk', '$total_laki_laki', '$total_perempuan', '$balita_laki_laki', 
+            '$balita_perempuan', '$pasangan_usia_subur', '$wanita_usia_subur', '$ibu_hamil', '$ibu_menyusui', 
+            '$lansia', '$tiga_buta', '$berkebutuhan_khusus', '$sehat_dan_layak_huni', 
+            '$memiliki_tempat_pembuangan_sampah', '$memiliki_spal', '$memiliki_jamban', 
+            '$sumber_air_keluarga', '$makanan_pokok', '$kegiatan_up2k', '$pemanfaatan_tanah', 
+            '$industri_rumah', '$kerja_bakti', '$keterangan'
+        )";
+
+        // Eksekusi query
+        if ($conn->query($query) === TRUE) {
+            $_SESSION['success'] = "Data berhasil disimpan!"; // Set session untuk notifikasi
+            header("Location: form_data_per_dasawisma.php"); // Redirect ke halaman yang sama
+            exit(); // Hentikan script
+        } else {
+            echo "Error: " . $query . "<br>" . $conn->error;
+        }
+    }
+}
+
+// Menampilkan notifikasi jika ada
+if (isset($_SESSION['success'])) {
+    echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            });
+          </script>";
+    unset($_SESSION['success']); // Hapus session setelah ditampilkan
+}
+
+// Menampilkan notifikasi jika ada
+if (isset($_SESSION['success'])) {
+    echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            });
+          </script>";
+    unset($_SESSION['success']); // Hapus session setelah ditampilkan
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DATA PER DASA WISMA</title>
+    <title>FORM : DATA PER DASAWISMA</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -68,7 +182,7 @@
                 <h2>CATATAN KELUARGA KECAMATAN BATUNUNGGAL KOTA BANDUNG PROVINSI JAWA BARAT</h2>
             </div>
             
-            <form>
+            <form method="POST" action="form_data_per_dasawisma.php">
                 
                 <!-- FORM 1 -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -76,7 +190,7 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="kelurahan" class="form-label bold">Kelurahan</label>
-                            <select class="form-select" id="kelurahan">
+                            <select class="form-select" id="kelurahan" name="kelurahan">
                                 <option selected disabled>Pilih Kelurahan</option>
                                 <option>Gumuruh</option>
                                 <option>Binong</option>
@@ -90,7 +204,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="pkk_rw" class="form-label bold">Kelompok PKK RW</label>
-                            <select class="form-select" id="pkk_rw">
+                            <select class="form-select" id="pkk_rw" name="pkk_rw">
                                 <option selected disabled>Pilih RW</option>
                                 <?php for($i=1; $i<=15; $i++): ?>
                                     <option value="<?= str_pad($i, 2, '0', STR_PAD_LEFT) ?>"><?= str_pad($i, 2, '0', STR_PAD_LEFT) ?></option>
@@ -98,7 +212,7 @@
                             </select>                    </div>
                         <div class="mb-3">
                             <label for="pkk_rt" class="form-label bold">Kelompok PKK RT</label>
-                            <select class="form-select" id="pkk_rt">
+                            <select class="form-select" id="pkk_rt" name="pkk_rt">
                                 <option selected disabled>Pilih RT</option>
                                 <?php for($i=1; $i<=15; $i++): ?>
                                     <option value="<?= str_pad($i, 2, '0', STR_PAD_LEFT) ?>"><?= str_pad($i, 2, '0', STR_PAD_LEFT) ?></option>
@@ -107,12 +221,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="pkk_dasa_wisma" class="form-label bold">Kelompok PKK Dasa Wisma</label>
-                            <input type="text" class="form-control" id="pkk_dasa_wisma" placeholder="Isi...">
+                            <input type="text" class="form-control" id="pkk_dasa_wisma" name="pkk_dasa_wisma" placeholder="Isi...">
                         </div>
 
                         <div class="mb-3">
                             <label for="tahun" class="form-label bold">Tahun</label>
-                            <input type="text" class="form-control" id="tahun" placeholder="Isi...">
+                            <input type="text" class="form-control" id="tahun" name="tahun" placeholder="Isi...">
                         </div>
                         <br>
                         <div class="ctn-form-button">
@@ -127,17 +241,17 @@
                     <div class="row"> 
                         <div class="mb-3">
                             <label for="no_reg" class="form-label bold">No. Reg (RW.RT.Dasa Wisma. No Rumah. No Urut KK. No Anggota Keluarga)</label>
-                            <input type="text" class="form-control" id="no_reg" placeholder="Contoh: 01.03.003.05.01.03">
+                            <input type="text" class="form-control" id="no_reg" name="no_reg" placeholder="Contoh: 01.03.003.05.01.03">
                         </div>
 
                         <div class="mb-3">
                             <label for="nama_kk" class="form-label bold">Nama Kepala Keluarga (KK)</label>
-                            <input type="text" class="form-control" id="nama_kk" placeholder="Isi...">
+                            <input type="text" class="form-control" id="nama_kk" name="nama_kk" placeholder="Isi...">
                         </div>
 
                         <div class="mb-3">
                             <label for="jumlah_kk" class="form-label bold">Jumlah KK</label>
-                            <input type="text" class="form-control" id="jumlah_kk" placeholder="Isi...">
+                            <input type="text" class="form-control" id="jumlah_kk" name="jumlah_kk" placeholder="Isi...">
                         </div>
 
                         <div class="ctn-form-button">
@@ -154,47 +268,47 @@
                         
                                 <div class="mb-3">
                                     <label for="total_laki_laki" class="form-label bold">Total Laki-laki</label>
-                                    <input type="text" class="form-control" id="total_laki_laki" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="total_laki_laki" name="total_laki_laki" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="total_perempuan" class="form-label bold">Total Perempuan</label>
-                                    <input type="text" class="form-control" id="total_perempuan" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="total_perempuan" name="total_perempuan" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="balita_laki_laki" class="form-label bold">Balita Laki-laki</label>
-                                    <input type="text" class="form-control" id="balita_laki_laki" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="balita_laki_laki" name="balita_laki_laki" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="balita_perempuan" class="form-label bold">Balita Perempuan</label>
-                                    <input type="text" class="form-control" id="balita_perempuan" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="balita_perempuan" name="balita_perempuan" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="pasangan_usia_subur" class="form-label bold">Pasangan Usia Subur (PUS)</label>
-                                    <input type="text" class="form-control" id="pasangan_usia_subur" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="pasangan_usia_subur" name="pasangan_usia_subur" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="wanita_usia_subur" class="form-label bold">Wanita Usia Subur (WUS)</label>
-                                    <input type="text" class="form-control" id="wanita_usia_subur" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="wanita_usia_subur" name="wanita_usia_subur" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="ibu_hamil" class="form-label bold">Ibu Hamil</label>
-                                    <input type="text" class="form-control" id="ibu_hamil" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="ibu_hamil" name="ibu_hamil" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="ibu_menyusui" class="form-label bold">Ibu Menyusui</label>
-                                    <input type="text" class="form-control" id="ibu_menyusui" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="ibu_menyusui" name="ibu_menyusui" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="lansia" class="form-label bold">Lansia</label>
-                                    <input type="text" class="form-control" id="lansia" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="lansia" name="lansia" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="tiga_buta" class="form-label bold">3Buta</label>
-                                    <input type="text" class="form-control" id="tiga_buta" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="tiga_buta" name="tiga_buta" placeholder="Isi...">
                                 </div>
                                 <div class="mb-3">
                                     <label for="berkebutuhan_khusus" class="form-label bold">Berkebutuhan Khusus</label>
-                                    <input type="text" class="form-control" id="berkebutuhan_khusus" placeholder="Isi...">
+                                    <input type="text" class="form-control" id="berkebutuhan_khusus" name="berkebutuhan_khusus" placeholder="Isi...">
                                 </div>
 
                         <div class="ctn-form-button">
@@ -268,15 +382,15 @@
                             <label class="form-label bold">Sumber air keluarga</label>
                             <div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="sumber_air_sumur" value="Sumur">
+                                    <input class="form-check-input" type="checkbox" id="sumber_air_sumur" name="sumber_air[]" value="Sumur">
                                     <label class="form-check-label" for="sumber_air_sumur">Sumur</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="sumber_air_pdam" value="PDAM">
+                                    <input class="form-check-input" type="checkbox" id="sumber_air_pdam" name="sumber_air[]" value="PDAM">
                                     <label class="form-check-label" for="sumber_air_pdam">PDAM</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" value="Lainnya">
+                                    <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air[]" value="Lainnya">
                                     <label class="form-check-label" for="sumber_air_lainnya">Lainnya</label>
                                     <input type="text" class="form-control mt-2" id="sumber_air_lainnya_text" placeholder="Sebutkan">
                                 </div>
@@ -367,7 +481,6 @@
                             <button type="button" class="btn btn-secondary back">Kembali</button>
                             <button type="button" class="btn btn-secondary next">Next</button>
                         </div>
-
                     </div>
                 </div>                
 
@@ -377,7 +490,7 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="keterangan" class="form-label bold">Keterangan</label>
-                            <textarea class="form-control" id="keterangan" rows="3" placeholder="Isi sesuai keperluan..."></textarea>
+                            <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Isi sesuai keperluan..."></textarea>
                         </div>
                         <div class="ctn-form-button">
                             <button type="button" class="btn btn-secondary back">Kembali</button>
@@ -454,5 +567,23 @@
             showSection(currentSectionIndex);
         });
     </script>
+
+    <!-- Modal Notifikasi -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Notifikasi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Data berhasil disimpan!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.href='view_data_per_dasawisma.php';">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

@@ -1,9 +1,13 @@
+<?php
+ob_start(); // Mulai output buffering
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REKAP DATA IBU HAMIL PER DASA WISMA</title>
+    <title>FORM : REKAP DATA IBU HAMIL PER DASA WISMA</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -61,7 +65,7 @@
                 <h2>CATATAN IBU HAMIL, KELAHIRAN, KEMATIAN BAYI, KEMATIAN BALITA DAN KEMATIAN IBU HAMIL, MELAHIRKAN DAN NIFAS DALAM KELOMPOK DASA WISMA KECAMATAN BATUNUNGGAL KOTA BANDUNG PROVINSI JAWA BARAT </h2>
             </div>
             
-            <form>
+            <form method="POST" action="">
                 
                 <!-- FORM 1 -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -69,7 +73,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="kelurahan" class="form-label bold">Kelurahan</label>
-                            <select class="form-select" id="kelurahan">
+                            <select class="form-select" id="kelurahan" name="kelurahan">
                                 <option value="Gumuruh">Gumuruh</option>
                                 <option value="Binong">Binong</option>
                                 <option value="Cibangkong">Cibangkong</option>
@@ -82,7 +86,7 @@
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="kelompok-pkk-rw" class="form-label bold">Kelompok PKK RW</label>
-                            <select class="form-select" id="kelompok-pkk-rw">
+                            <select class="form-select" id="kelompok-pkk-rw" name="kelompok-pkk-rw">
                                 <?php for ($i = 1; $i <= 15; $i++): ?>
                                     <option value="<?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?>"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></option>
                                 <?php endfor; ?>
@@ -90,7 +94,7 @@
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="kelompok-pkk-rt" class="form-label bold">Kelompok PKK RT</label>
-                            <select class="form-select" id="kelompok-pkk-rt">
+                            <select class="form-select" id="kelompok-pkk-rt" name="kelompok-pkk-rt">
                                 <?php for ($i = 1; $i <= 15; $i++): ?>
                                     <option value="<?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?>"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></option>
                                 <?php endfor; ?>
@@ -98,7 +102,7 @@
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="kelompok-dasa-wisma" class="form-label bold">Kelompok Dasa Wisma</label>
-                            <select class="form-select" id="kelompok-dasa-wisma">
+                            <select class="form-select" id="kelompok-dasa-wisma" name="kelompok-dasa-wisma">
                                 <?php for ($i = 1; $i <= 15; $i++): ?>
                                     <option value="<?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?>"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></option>
                                 <?php endfor; ?>
@@ -106,11 +110,11 @@
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="tahun" class="form-label bold">Tahun</label>
-                            <input type="text" class="form-control" id="tahun" placeholder="Isi...">
+                            <input type="text" class="form-control" id="tahun" name="tahun" placeholder="Isi...">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="bulan" class="form-label bold">Bulan</label>
-                            <select class="form-select" id="bulan">
+                            <select class="form-select" id="bulan" name="bulan">
                                 <option value="Januari">Januari</option>
                                 <option value="Februari">Februari</option>
                                 <option value="Maret">Maret</option>
@@ -138,11 +142,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="nama-ibu" class="form-label bold">Nama Ibu</label>
-                            <input type="text" class="form-control" id="nama-ibu" placeholder="Isi...">
+                            <input type="text" class="form-control" id="nama-ibu" name="nama-ibu" placeholder="Isi...">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="nama-suami" class="form-label bold">Nama Suami</label>
-                            <input type="text" class="form-control" id="nama-suami" placeholder="Isi...">
+                            <input type="text" class="form-control" id="nama-suami" name="nama-suami" placeholder="Isi...">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label class="form-label bold">Status Hamil</label>
@@ -190,7 +194,7 @@
                     <div class="row">
                         <div class="col-md-12 mt-4">
                             <label for="nama-bayi" class="form-label bold">Nama Bayi</label>
-                            <input type="text" class="form-control" id="nama-bayi" placeholder="Isi...">
+                            <input type="text" class="form-control" id="nama-bayi" name="nama-bayi" placeholder="Isi...">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label class="form-label bold">Jenis Kelamin</label>
@@ -205,11 +209,11 @@
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="tempat-lahir" class="form-label bold">Tempat Lahir</label>
-                            <input type="text" class="form-control" id="tempat-lahir" placeholder="Isi...">
+                            <input type="text" class="form-control" id="tempat-lahir" name="tempat-lahir" placeholder="Isi...">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="tanggal-lahir" class="form-label bold">Tanggal Lahir</label>
-                            <input type="date" class="form-control" id="tanggal-lahir">
+                            <input type="date" class="form-control" id="tanggal-lahir" name="tanggal-lahir">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label class="form-label bold">Akte Kelahiran</label>
@@ -235,15 +239,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="nama-ibu" class="form-label bold">Nama Ibu</label>
-                            <input type="text" class="form-control" id="nama-ibu" placeholder="Isi...">
+                            <input type="text" class="form-control" id="nama-ibu" name="nama-ibu" placeholder="Isi...">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="nama-bayi" class="form-label bold">Nama Bayi</label>
-                            <input type="text" class="form-control" id="nama-bayi" placeholder="Isi...">
+                            <input type="text" class="form-control" id="nama-bayi" name="nama-bayi" placeholder="Isi...">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="nama-balita" class="form-label bold">Nama Balita</label>
-                            <input type="text" class="form-control" id="nama-balita" placeholder="Isi...">
+                            <input type="text" class="form-control" id="nama-balita" name="nama-balita" placeholder="Isi...">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label class="form-label bold">Status</label>
@@ -273,15 +277,15 @@
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="tanggal-meninggal" class="form-label bold">Tanggal Meninggal</label>
-                            <input type="date" class="form-control" id="tanggal-meninggal">
+                            <input type="date" class="form-control" id="tanggal-meninggal" name="tanggal-meninggal">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="sebab-meninggal" class="form-label bold">Sebab Meninggal</label>
-                            <input type="text" class="form-control" id="sebab-meninggal" placeholder="Isi...">
+                            <input type="text" class="form-control" id="sebab-meninggal" name="sebab-meninggal" placeholder="Isi...">
                         </div>
                         <div class="col-md-12 mt-4">
                             <label for="keterangan" class="form-label bold">Keterangan</label>
-                            <input type="text" class="form-control" id="keterangan" placeholder="Isi...">
+                            <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Isi...">
                         </div>
                         <div class="ctn-form-button">
                             <button type="button" class="btn btn-secondary back">Kembali</button>
@@ -358,5 +362,103 @@
             showSection(currentSectionIndex);
         });
     </script>
+
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        include 'connect.php'; // Memasukkan file koneksi
+
+        // Mengambil data dari form
+        $kelurahan = $_POST['kelurahan'];
+        $kelompok_pkk_rw = $_POST['kelompok-pkk-rw'];
+        $kelompok_pkk_rt = $_POST['kelompok-pkk-rt'];
+        $kelompok_dasa_wisma = $_POST['kelompok-dasa-wisma'];
+        $tahun = $_POST['tahun'];
+        $bulan = $_POST['bulan'];
+        $nama_ibu_hmn = $_POST['nama-ibu'];
+        $nama_suami_hmn = $_POST['nama-suami'];
+        $hamil_status = $_POST['status-hamil'];
+        $melahirkan_status = $_POST['status-melahirkan'];
+        $nifas_status = $_POST['status-nifas'];
+        $nama_bayi_ml = $_POST['nama-bayi'];
+        $jenis_kelamin_ml = $_POST['jenis-kelamin'];
+        $tempat_lahir = $_POST['tempat-lahir'];
+        $tanggal_lahir = $_POST['tanggal-lahir'];
+        $akte_kelahiran = $_POST['akte-kelahiran'];
+        $nama_ibu_mt = $_POST['nama-ibu'];
+        $nama_bayi_mt = $_POST['nama-bayi'];
+        $nama_balita = $_POST['nama-balita'];
+        $jenis_kelamin_mt = $_POST['jenis-kelamin'];
+        $tanggal_meninggal = $_POST['tanggal-meninggal'];
+        $sebab_meninggal = $_POST['sebab-meninggal'];
+        $keterangan = $_POST['keterangan'];
+
+        // Query untuk memasukkan data ke dalam tabel
+        $sql = "INSERT INTO rekap_data_ibu_hamil_per_dasa_wisma (
+                    kelurahan, kelompok_pkk_rw, kelompok_pkk_rt, kelompok_dasa_wisma, tahun, bulan,
+                    nama_ibu_hmn, nama_suami_hmn, hamil_status, melahirkan_status, nifas_status,
+                    nama_bayi_ml, jenis_kelamin_ml, tempat_lahir, tanggal_lahir, akte_kelahiran,
+                    nama_ibu_mt, nama_bayi_mt, nama_balita, jenis_kelamin_mt, tanggal_meninggal,
+                    sebab_meninggal, keterangan
+                ) VALUES (
+                    '$kelurahan', '$kelompok_pkk_rw', '$kelompok_pkk_rt', '$kelompok_dasa_wisma', '$tahun', '$bulan',
+                    '$nama_ibu_hmn', '$nama_suami_hmn', '$hamil_status', '$melahirkan_status', '$nifas_status',
+                    '$nama_bayi_ml', '$jenis_kelamin_ml', '$tempat_lahir', '$tanggal_lahir', '$akte_kelahiran',
+                    '$nama_ibu_mt', '$nama_bayi_mt', '$nama_balita', '$jenis_kelamin_mt', '$tanggal_meninggal',
+                    '$sebab_meninggal', '$keterangan'
+                )";
+
+        if ($conn->query($sql) === TRUE) {
+            // Redirect setelah berhasil menyimpan data
+            header("Location: " . $_SERVER['PHP_SELF'] . "?success=1");
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        mysqli_close($conn);
+    }
+
+    // Menampilkan notifikasi jika berhasil
+    if (isset($_GET['success'])) {
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+
+                    // Menghapus parameter 'success' dari URL setelah notifikasi ditampilkan
+                    var url = new URL(window.location.href);
+                    url.searchParams.delete('success');
+                    window.history.replaceState({}, document.title, url);
+
+                    // Redirect ke view_rekap_data_ibu_hamil_per_dasa_wisma.php setelah notifikasi ditutup
+                    document.getElementById('successModal').addEventListener('hidden.bs.modal', function () {
+                        window.location.href = 'view_rekap_data_ibu_hamil_per_dasa_wisma.php';
+                    });
+                });
+              </script>";
+    }
+    ?>
+
+    <!-- Modal Notifikasi -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Notifikasi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Data berhasil disimpan!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<?php
+ob_end_flush(); // Mengakhiri output buffering
+?>
 </body>
 </html>
