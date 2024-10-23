@@ -199,7 +199,7 @@ ob_start(); // Mulai output buffering
                         <div class="col-md-12 mt-4">
                             <label class="form-label bold">Jenis Kelamin</label>
                             <div>
-                                <input type="radio" id="jenis-kelamin-laki" name="jenis-kelamin" value="laki">
+                                <input type="radio" id="jenis-kelamin-laki" name="jenis-kelamin" value="laki-laki">
                                 <label for="jenis-kelamin-laki">Laki-laki</label>
                             </div>
                             <div>
@@ -222,7 +222,7 @@ ob_start(); // Mulai output buffering
                                 <label for="akte-ada">Ada</label>
                             </div>
                             <div>
-                                <input type="radio" id="akte-tidak-ada" name="akte-kelahiran" value="tidak-ada">
+                                <input type="radio" id="akte-tidak-ada" name="akte-kelahiran" value="tidak ada">
                                 <label for="akte-tidak-ada">Tidak Ada</label>
                             </div>
                         </div>
@@ -267,7 +267,7 @@ ob_start(); // Mulai output buffering
                         <div class="col-md-12 mt-4">
                             <label class="form-label bold">Jenis Kelamin</label>
                             <div>
-                                <input type="radio" id="jenis-kelamin-laki" name="jenis-kelamin" value="laki">
+                                <input type="radio" id="jenis-kelamin-laki" name="jenis-kelamin" value="laki-laki">
                                 <label for="jenis-kelamin-laki">Laki-laki</label>
                             </div>
                             <div>

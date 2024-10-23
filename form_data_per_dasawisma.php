@@ -390,9 +390,9 @@ if (isset($_SESSION['success'])) {
                                     <label class="form-check-label" for="sumber_air_pdam">PDAM</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air[]" value="Lainnya">
+                                    <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air[]" value="">
                                     <label class="form-check-label" for="sumber_air_lainnya">Lainnya</label>
-                                    <input type="text" class="form-control mt-2" id="sumber_air_lainnya_text" placeholder="Sebutkan">
+                                    <input type="text" class="form-control mt-2" id="sumber_air_lainnya_text" placeholder="Sebutkan" oninput="updateSumberAirLainnyaCheckbox()">
                                 </div>
                             </div>
                         </div>
@@ -566,6 +566,12 @@ if (isset($_SESSION['success'])) {
 
             showSection(currentSectionIndex);
         });
+
+        function updateSumberAirLainnyaCheckbox() {
+            const textInput = document.getElementById('sumber_air_lainnya_text');
+            const checkboxInput = document.getElementById('sumber_air_lainnya');
+            checkboxInput.value = textInput.value; // Set the checkbox's value to the text input's value
+        }
     </script>
 
     <!-- Modal Notifikasi -->

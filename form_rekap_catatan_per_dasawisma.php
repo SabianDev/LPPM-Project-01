@@ -249,12 +249,12 @@ if (isset($_SESSION['success'])) { // Cek session untuk notifikasi
                                                 <label for="khonghucu">Khonghucu</label>
                                             </div>
                                             <div class="me-3">
-                                                <input type="radio" id="agamaLainnya" name="agama" value="Lainnya">
+                                                <input type="radio" id="agamaLainnya" name="agama" value="">
                                                 <label for="agamaLainnya">Lainnya</label>
+                                                <input type="text" class="form-control" id="agamaLainnyaText" placeholder="Sebutkan Lainnya" oninput="updateAgamaLainnya()">
                                             </div>
                                         </div>
-                                    <input type="text" class="form-control" id="agamaLainnyaText" placeholder="Sebutkan Lainnya">
-                                </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -286,10 +286,10 @@ if (isset($_SESSION['success'])) { // Cek session untuk notifikasi
                                         <label for="s3">S3</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="pendidikanLainnya" name="pendidikan" value="Lainnya">
+                                        <input type="radio" id="pendidikanLainnya" name="pendidikan" value="">
                                         <label for="pendidikanLainnya">Lainnya</label>
+                                        <input type="text" class="form-control" id="pendidikanLainnyaText" placeholder="Sebutkan Lainnya" oninput="updatePendidikanLainnya()">
                                     </div>
-                                    <input type="text" class="form-control" id="pendidikanLainnyaText" placeholder="Sebutkan Lainnya">
                                 </div>
                             </div>
 
@@ -325,10 +325,10 @@ if (isset($_SESSION['success'])) { // Cek session untuk notifikasi
                                         <label for="mahasiswa">Mahasiswa</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="pekerjaanLainnya" name="pekerjaan" value="Lainnya">
+                                        <input type="radio" id="pekerjaanLainnya" name="pekerjaan" value="">
                                         <label for="pekerjaanLainnya">Lainnya</label>
+                                        <input type="text" class="form-control" id="pekerjaanLainnyaText" placeholder="Sebutkan Lainnya" oninput="updatePekerjaanLainnya()">
                                     </div>
-                                    <input type="text" class="form-control" id="pekerjaanLainnyaText" placeholder="Sebutkan Lainnya">
                                 </div>
                             </div>
 
@@ -352,10 +352,10 @@ if (isset($_SESSION['success'])) { // Cek session untuk notifikasi
                                         <label for="sensorik">Sensorik</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="berkebutuhanKhususLainnya" name="berkebutuhanKhusus" value="Lainnya">
+                                        <input type="radio" id="berkebutuhanKhususLainnya" name="berkebutuhanKhusus" value="">
                                         <label for="berkebutuhanKhususLainnya">Lainnya</label>
+                                        <input type="text" class="form-control" id="berkebutuhanKhususLainnyaText" placeholder="Sebutkan Lainnya" oninput="updateBerkebutuhanKhususLainnya()">
                                     </div>
-                                    <input type="text" class="form-control" id="berkebutuhanKhususLainnyaText" placeholder="Sebutkan Lainnya">
                                 </div>
                             </div>
                         <br>
@@ -453,11 +453,11 @@ if (isset($_SESSION['success'])) { // Cek session untuk notifikasi
                 <div class="ctn-form form-section" id="<?php echo $formTarget3; ?>">
                     <h4 class="mt-4"><?php echo $formTitle3; ?></h4><br>
                     <div class="row">
-                    <div class="mb-3">
+                        <div class="mb-3">
                             <label class="form-label bold">Rumah Layak Huni</label>
                             <div>
                                 <div>
-                                    <input type="radio" id="layakHuni" name="kriteriaRumah" value="kriteriaRumah">
+                                    <input type="radio" id="layakHuni" name="kriteriaRumah" value="Layak Huni">
                                     <label for="layakHuni">Layak Huni</label>
                                 </div>
                                 <div>
@@ -491,10 +491,10 @@ if (isset($_SESSION['success'])) { // Cek session untuk notifikasi
                                     <label for="sumur">Sumur</label>
                                 </div>
                                 <div>
-                                    <input type="radio" id="sumberAirLainnya" name="sumberAir" value="Lainnya">
+                                    <input type="radio" id="sumberAirLainnya" name="sumberAir" value="">
                                     <label for="sumberAirLainnya">Lainnya</label>
+                                    <input type="text" class="form-control" id="sumberAirLainnyaText" placeholder="Sebutkan Lainnya" oninput="updateSumberAirLainnya()">
                                 </div>
-                                <input type="text" class="form-control" id="sumberAirLainnyaText" placeholder="Sebutkan Lainnya">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -586,6 +586,36 @@ if (isset($_SESSION['success'])) { // Cek session untuk notifikasi
                 window.location.href = 'view_rekap_catatan_per_dasawisma.php';
             });
         });
+
+        function updateAgamaLainnya() {
+            const textInput = document.getElementById('agamaLainnyaText');
+            const radioInput = document.getElementById('agamaLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updatePendidikanLainnya() {
+            const textInput = document.getElementById('pendidikanLainnyaText');
+            const radioInput = document.getElementById('pendidikanLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updatePekerjaanLainnya() {
+            const textInput = document.getElementById('pekerjaanLainnyaText');
+            const radioInput = document.getElementById('pekerjaanLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updateBerkebutuhanKhususLainnya() {
+            const textInput = document.getElementById('berkebutuhanKhususLainnyaText');
+            const radioInput = document.getElementById('berkebutuhanKhususLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updateSumberAirLainnya() {
+            const textInput = document.getElementById('sumberAirLainnyaText');
+            const radioInput = document.getElementById('sumberAirLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
     </script>
 
     <!-- Modal Notifikasi -->

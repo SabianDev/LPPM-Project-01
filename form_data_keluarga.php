@@ -253,9 +253,9 @@
                                 <label for="anak">Anak</label>
                             </div>
                             <div>
-                                <input type="radio" id="statusLainnya" name="statusdalamkeluarga" value="Lainnya">
+                                <input type="radio" id="statusLainnya" name="statusdalamkeluarga" value="">
                                 <label for="statusdalamkeluargaLainnya">Lainnya</label>
-                                <input type="text" class="form-control" id="statusdalamkeluargaLainnyaText" placeholder="Sebutkan Lainnya">
+                                <input type="text" class="form-control" id="statusdalamkeluargaLainnyaText" placeholder="Sebutkan Lainnya" oninput="updateStatusDalamKeluargaLainnya()">
                             </div>
                         </div>
                     </div>
@@ -318,10 +318,10 @@
                                 <label for="s3">S3</label>
                             </div>
                             <div>
-                                <input type="radio" id="pendidikanLainnya" name="pendidikan" value="Lainnya">
+                                <input type="radio" id="pendidikanLainnya" name="pendidikan" value="">
                                 <label for="pendidikanLainnya">Lainnya</label>
+                                <input type="text" class="form-control" id="pendidikanLainnyaText" placeholder="Sebutkan Lainnya" oninput="updatePendidikanLainnya()">
                             </div>
-                            <input type="text" class="form-control" id="pendidikanLainnyaText" placeholder="Sebutkan Lainnya">
                         </div>
                     </div>
                     <div class="mb-3">
@@ -356,9 +356,9 @@
                                 <label for="mahasiswa">Mahasiswa</label>
                             </div>
                             <div>
-                                <input type="radio" id="pekerjaanLainnya" name="pekerjaan" value="Lainnya">
+                                <input type="radio" id="pekerjaanLainnya" name="pekerjaan" value="">
                                 <label for="pekerjaanLainnya">Lainnya</label>
-                                <input type="text" class="form-control" id="pekerjaanLainnyaText" placeholder="Sebutkan Lainnya">
+                                <input type="text" class="form-control" id="pekerjaanLainnyaText" placeholder="Sebutkan Lainnya" oninput="updatePekerjaanLainnya()">
                             </div>
                         </div>
                     </div>
@@ -459,9 +459,9 @@
                                 <label for="nonberas">Non Beras</label>
                             </div>
                             <div>
-                                <input type="radio" id="makananLainnya" name="makananPokok" value="Lainnya">
-                                <label for="makananpokokLainnya">Lainnya</label>
-                                <input type="text" class="form-control" id="makananpokokLainnyaText" placeholder="Sebutkan Lainnya">
+                                <input type="radio" id="makananLainnya" name="makananPokok" value="">
+                                <label for="makananLainnya">Lainnya</label>
+                                <input type="text" class="form-control" id="makananpokokLainnyaText" placeholder="Sebutkan Lainnya" oninput="updateMakananLainnya()">
                             </div>
                         </div>
                     </div>
@@ -505,9 +505,10 @@
                                 <input type="radio" id="jumlahSembilan" name="jumlahJaminan" value="9" style="margin-right: 5px;">9
                             </label>
                             <label for="jumlahLainnya">
-                                <input type="radio" id="jumlahLainnya" name="jumlahJaminan" value="Lainnya" style="margin-right: 5px;">Lainnya
+                                <input type="radio" id="jumlahLainnya" name="jumlahJaminan" value="">
+                                Lainnya
                             </label>
-                            <input type="text" class="form-control" id="jumlahLainnyaText" placeholder="Sebutkan Lainnya">
+                            <input type="text" class="form-control" id="jumlahLainnyaText" placeholder="Sebutkan Lainnya" oninput="updateJumlahLainnya()">
                         </div>
                     </div>
                     <div class="mb-3">
@@ -526,9 +527,9 @@
                                 <label for="sungai">Sungai</label>
                             </div>
                             <div>
-                                <input type="radio" id="sumberAirLainnya" name="sumberAir" value="Lainnya">
+                                <input type="radio" id="sumberAirLainnya" name="sumberAir" value="">
                                 <label for="sumberAirLainnya">Lainnya</label>
-                                <input type="text" class="form-control" id="sumberAirLainnyaText" placeholder="Sebutkan Lainnya">
+                                <input type="text" class="form-control" id="sumberAirLainnyaText" placeholder="Sebutkan Lainnya" oninput="updateSumberAirLainnya()">
                             </div>
                         </div>
                     </div>
@@ -579,9 +580,9 @@
                                 <label for="up2k_tidak">Tidak</label>
                             </div>
                             <div>
-                                <input type="radio" id="up2k_lainnya" name="up2k" value="Lainnya">
+                                <input type="radio" id="up2k_lainnya" name="up2k" value="">
                                 <label for="up2k_lainnya">Lainnya:</label>
-                                <input type="text" class="form-control" id="up2k_lainnyaText" placeholder="Sebutkan Lainnya">
+                                <input type="text" class="form-control" id="up2k_lainnyaText" placeholder="Sebutkan Lainnya" oninput="updateUp2kLainnya()">
                             </div>
                     </div>
                     <div class="mb-3">
@@ -691,6 +692,48 @@
 
             showSection(currentSectionIndex);
         });
+
+        function updateStatusDalamKeluargaLainnya() {
+            const textInput = document.getElementById('statusdalamkeluargaLainnyaText');
+            const radioInput = document.getElementById('statusLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updatePendidikanLainnya() {
+            const textInput = document.getElementById('pendidikanLainnyaText');
+            const radioInput = document.getElementById('pendidikanLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updatePekerjaanLainnya() {
+            const textInput = document.getElementById('pekerjaanLainnyaText');
+            const radioInput = document.getElementById('pekerjaanLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updateMakananLainnya() {
+            const textInput = document.getElementById('makananpokokLainnyaText');
+            const radioInput = document.getElementById('makananLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updateJumlahLainnya() {
+            const textInput = document.getElementById('jumlahLainnyaText');
+            const radioInput = document.getElementById('jumlahLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updateSumberAirLainnya() {
+            const textInput = document.getElementById('sumberAirLainnyaText');
+            const radioInput = document.getElementById('sumberAirLainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updateUp2kLainnya() {
+            const textInput = document.getElementById('up2k_lainnyaText');
+            const radioInput = document.getElementById('up2k_lainnya');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
     </script>
 
    

@@ -163,16 +163,15 @@ if (isset($_SESSION['success_message'])) {
                                 <label for="arisan">Arisan</label>
                             </div>
                             <div>
-                                <input type="radio" id="other" name="kegiatan" value="Other">
-                                <label for="other">Other:</label>
-                                <input class="form-control" type="text" id="custom_kegiatan" placeholder="Masukkan pilihan custom">
+                                <input type="radio" id="other" name="kegiatan" value="">
+                                <label for="other">Lainnya:</label>
+                                <input class="form-control" type="text" id="custom_kegiatan" placeholder="Sebutkan Lainnya" oninput="updateOtherKegiatan()">
                             </div>
                         </div>
                         <div class="col-md-12 mt-5 ">
-    <label for="keterangan" class="form-label bold">Keterangan nama kegiatan yang diikuti.</label>
-    <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Isi...">
-</div>
-                        <!-- ... existing code ... -->
+                            <label for="keterangan" class="form-label bold">Keterangan nama kegiatan yang diikuti.</label>
+                            <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Isi...">
+                        </div>
                         <br>
                         <div class="ctn-form-button">
                             <button type="button" class="btn btn-secondary next">Next</button>
@@ -316,9 +315,9 @@ if (isset($_SESSION['success_message'])) {
                                 <label for="rajut_tidak">Tidak</label>
                             </div>
                             <div>
-                                <input type="radio" id="rajut_other" name="industri_rajut" value="Other">
-                                <label for="rajut_other">Other:</label>
-                                <input class="form-control" type="text" id="custom_industri_rajut" placeholder="Masukkan pilihan custom">
+                                <input type="radio" id="rajut_other" name="industri_rajut" value="">
+                                <label for="rajut_other">Lainnya:</label>
+                                <input class="form-control" type="text" id="custom_industri_rajut" placeholder="Sebutkan Lainnya" oninput="updateRajutOther()">
                             </div>
                         </div>
                         <div class="ctn-form-button">
@@ -411,6 +410,18 @@ if (isset($_SESSION['success_message'])) {
            
             });
         });
+
+        function updateOtherKegiatan() {
+            const textInput = document.getElementById('custom_kegiatan');
+            const radioInput = document.getElementById('other');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
+
+        function updateRajutOther() {
+            const textInput = document.getElementById('custom_industri_rajut');
+            const radioInput = document.getElementById('rajut_other');
+            radioInput.value = textInput.value; // Set the radio button's value to the text input's value
+        }
     </script>
 
     <!-- Modal Notifikasi -->
