@@ -1,10 +1,9 @@
 <?php
-session_start();
-include 'connect.php';
+    include 'connect.php'; // Koneksi ke database
 
-// Ambil data dari tabel kegiatan_warga
-$sql = "SELECT * FROM kegiatan_warga";
-$result = $conn->query($sql);
+    // Ganti sesuai kebutuhan
+    $sql = "SELECT * FROM kegiatan_warga";
+    $result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -13,46 +12,53 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIEW : KEGIATAN WARGA</title>
+
+    <!-- LINKS -->
+     
+    <link href="DataTables/datatables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles-table.css">
 </head>
-<body class="bg-light">
+<body>
+
     <header class="header">
         <div class="header-left">
-            <h1>SIPEDAS BERANI</h1>
+            <h3>KEGIATAN WARGA (View Only)</h3>
         </div>
         <div class="header-right">
-            <!-- <span>Login sebagai: </span> -->
-            
-            <span>Login sebagai: User</span>
+            <a href="mainmenu.php" class="btn btn-light">Kembali</a> <!-- Button to go back to mainmenu.php -->
         </div>
     </header>
-    <div class="container mt-5">
-        <h4 class="mt-5">KEGIATAN WARGA KECAMATAN BATUNUNGGAL KOTA BANDUNG PROVINSI JAWA BARAT</h4>
-        <?php if ($result->num_rows > 0): ?>
-            <input type="text" id="searchKegiatan" placeholder="Cari Kegiatan" class="form-control mt-3" onkeyup="filterTable()" style="margin-top: 80px;">
-            <table class="table table-bordered mt-4">
-                <thead>
+
+    <div class="content mt-5">
+        <div class="table-wrapper mt-5">
+            <table class="table table-hover table-striped table-bordered" id="table-default">
+                <thead class="table-light">
                     <tr>
-                        <th>ID</th>
-                        <th>Kegiatan</th>
-                        <th>Keterangan</th>
-                        <th>Pemilihan Sampah</th>
-                        <th>Lubang Biopori</th>
-                        <th>Tanaman Obat Keluarga</th>
-                        <th>Kampung Berkebun</th>
-                        <th>Buruan Sae</th>
-                        <th>Sumur Resapan</th>
-                        <th>Loseda</th>
-                        <th>Industri Makanan</th>
-                        <th>Industri Minuman</th>
-                        <th>Industri Kerajinan</th>
-                        <th>Industri Rajut</th>
+                        <th scope="col">No.</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Kegiatan</th>
+                        <th scope="col">Keterangan</th>
+                        <th scope="col">Pemilihan Sampah</th>
+                        <th scope="col">Lubang Biopori</th>
+                        <th scope="col">Tanaman Obat Keluarga</th>
+                        <th scope="col">Kampung Berkebun</th>
+                        <th scope="col">Buruan Sae</th>
+                        <th scope="col">Sumur Resapan</th>
+                        <th scope="col">Loseda</th>
+                        <th scope="col">Industri Makanan</th>
+                        <th scope="col">Industri Minuman</th>
+                        <th scope="col">Industri Kerajinan</th>
+                        <th scope="col">Industri Rajut</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while($row = $result->fetch_assoc()): ?>
+                <?php 
+                $num = 1;
+                while($row = $result->fetch_assoc()): ?>
                         <tr>
+                            <td><?php echo $num; ?></td>
                             <td><?php echo $row['id']; ?></td>
                             <td><?php echo $row['kegiatan']; ?></td>
                             <td><?php echo $row['keterangan']; ?></td>
@@ -68,38 +74,16 @@ $result = $conn->query($sql);
                             <td><?php echo $row['industri_kerajinan']; ?></td>
                             <td><?php echo $row['industri_rajut']; ?></td>
                         </tr>
-                    <?php endwhile; ?>
+                    <?php 
+                    $num = $num + 1;
+                    endwhile; ?>
                 </tbody>
             </table>
-            <a href="mainmenu.php" class="btn btn-secondary">Kembali</a>
-        <?php else: ?>
-            <p>Tidak ada data yang ditemukan.</p>
-        <?php endif; ?>
+        </div>
     </div>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script>
-function filterTable() {
-    var input, filter, table, tr, td, i, j, txtValue;
-    input = document.getElementById("searchKegiatan");
-    filter = input.value.toLowerCase();
-    table = document.querySelector("table");
-    tr = table.getElementsByTagName("tr");
-
-    // Loop melalui semua baris tabel, sembunyikan baris yang tidak cocok
-    for (i = 1; i < tr.length; i++) { // Mulai dari 1 untuk melewati header
-        tr[i].style.display = "none"; // Sembunyikan baris
-        td = tr[i].getElementsByTagName("td");
-        for (j = 0; j < td.length; j++) {
-            if (td[j]) {
-                txtValue = td[j].textContent || td[j].innerText;
-                if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                    tr[i].style.display = ""; // Tampilkan baris jika cocok
-                    break;
-                }
-            }
-        }
-    }
-}
-    </script>
+    
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="DataTables/datatables.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

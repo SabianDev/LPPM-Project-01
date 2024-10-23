@@ -1,0 +1,8 @@
+.table-wrapper {
+    border: solid,1px,lightgray;
+    padding: 20px;
+    width: 90vw; /* Set the width to 80% of the viewport width */
+    overflow-x: hidden; /* Enable horizontal scrolling */
+    display: flex;
+    flex-direction: column;
+}

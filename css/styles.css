@@ -1,6 +1,7 @@
 :root {
     --white: #ffffff;
     --blue: #1e90ff;
+    --darkgray : #333;
   }
 
 body {
@@ -14,8 +15,8 @@ body {
 /* tagHEADER */
 
 .header {
-    background-color: var(--blue);
-    color: white;
+    background: linear-gradient(to right, #5dc4ff, #6c74e2);
+    color: var(--darkgray);
     position: fixed; /* Keep the header fixed */
     top: 0; /* Position at the top */
     left: 0; /* Align to the left */
