@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIEW : REKAP DATA IBU HAMIL PER RT</title>
+    <title>VIEW : REKAP DATA IBU HAMIL PER RW</title>
 
     <!-- LINKS -->
      
@@ -24,7 +24,7 @@
 
     <header class="header">
         <div class="header-left">
-            <h3>REKAP DATA IBU HAMIL PER RT (View Only)</h3>
+            <h3>REKAP DATA IBU HAMIL PER RW (View Only)</h3>
         </div>
         <div class="header-right">
             <a href="mainmenu.php" class="btn btn-light">Kembali</a> <!-- Button to go back to mainmenu.php -->
@@ -99,8 +99,8 @@
         </div>
     </div>
     
-    <script src="js/jquery-3.7.1.min.js"></script>
     <script src="DataTables/datatables.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

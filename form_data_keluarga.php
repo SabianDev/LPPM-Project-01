@@ -51,12 +51,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Cek apakah semua input yang diperlukan sudah diisi
         $requiredFields = [
-            'kelurahan', 'rw', 'rt', 'dasadisma', 'kepalarumahtangga', 
-            'noreg', 'anggotakeluarga', 'statusdalamkeluarga', 
-            'statusdalamperkawinan', 'jeniskelamin', 'tempatlahir', 
-            'tanggalLahir', 'umur', 'pendidikan', 'pekerjaan', 
-            'kelumur', 'makananPokok', 'jumlahJaminan', 'sumberAir', 
-            'kriteriaRumah', 'up2k', 'usahaKesling'
+            'kelurahan'
         ];
         
         $allFilled = true;
@@ -87,21 +82,21 @@
             $pendidikan_terakhir = $_POST['pendidikan'];
             $pekerjaan = $_POST['pekerjaan'];
             $kelompok_umur = $_POST['kelumur'];
-            $bumil = isset($_POST['bumil']) ? 'Ya' : 'Tidak';
-            $ibu_menyusui = isset($_POST['ibumenyusui']) ? 'Ya' : 'Tidak';
-            $pasangan_subur = isset($_POST['pasangansubur']) ? 'Ya' : 'Tidak';
-            $wanita_usia_subur = isset($_POST['wanitausiasubur']) ? 'Ya' : 'Tidak';
-            $apa_3_buta = isset($_POST['buta']) ? 'Ya' : 'Tidak';
+            $bumil = isset($_POST['bumil']) ? $_POST['bumil'] : 'Tidak'; // Capture value
+            $ibu_menyusui = isset($_POST['ibumenyusui']) ? $_POST['ibumenyusui'] : 'Tidak'; // Capture value
+            $pasangan_subur = isset($_POST['pasangansubur']) ? $_POST['pasangansubur'] : 'Tidak'; // Capture value
+            $wanita_usia_subur = isset($_POST['wanitausiasubur']) ? $_POST['wanitausiasubur'] : 'Tidak'; // Capture value
+            $apa_3_buta = isset($_POST['buta']) ? $_POST['buta'] : 'Tidak'; // Capture value
             $makanan_pokok_sehari_hari = $_POST['makananPokok'];
-            $mempunyai_jaminan_keluarga = isset($_POST['jaminanKeluarga']) ? 'Ya' : 'Tidak';
+            $mempunyai_jaminan_keluarga = isset($_POST['jaminanKeluarga']) ? $_POST['jaminanKeluarga'] : 'Tidak'; // Capture value
             $jumlah_jaminan_keluarga = $_POST['jumlahJaminan'];
             $sumber_air_keluarga = $_POST['sumberAir'];
-            $memiliki_tempat_pembuangan_sampah = isset($_POST['pembuanganSampah']) ? 'Ya' : 'Tidak';
-            $memiliki_saluran_pembuangan_air_limbah = isset($_POST['pembuanganAirLimbah']) ? 'Ya' : 'Tidak';
-            $menempel_stiker_p4k = isset($_POST['stiker']) ? 'Ya' : 'Tidak';
+            $memiliki_tempat_pembuangan_sampah = isset($_POST['pembuanganSampah']) ? $_POST['pembuanganSampah'] : 'Tidak'; // Capture value
+            $memiliki_saluran_pembuangan_air_limbah = isset($_POST['pembuanganAirLimbah']) ? $_POST['pembuanganAirLimbah'] : 'Tidak'; // Capture value
+            $menempel_stiker_p4k = isset($_POST['stiker']) ? $_POST['stiker'] : 'Tidak'; // Capture value
             $kriteria_rumah = $_POST['kriteriaRumah'];
-            $aktifitas_up2k = isset($_POST['up2k_ya']) ? 'Ya' : 'Tidak';
-            $aktifitas_usaha_kesling = isset($_POST['usahaKesling']) ? 'Ya' : 'Tidak';
+            $aktifitas_up2k = isset($_POST['up2k']) ? $_POST['up2k'] : 'Tidak'; // Capture value
+            $aktifitas_usaha_kesling = isset($_POST['usahaKesling']) ? $_POST['usahaKesling'] : 'Tidak'; // Capture value
 
             // Koneksi ke database
             include 'connect.php';
@@ -181,7 +176,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="rw" class="form-label bold mt-3"><strong>RW</strong></label>
-                        <select class="form-select"" id="rw" name="rw">
+                        <select class="form-select" id="rw" name="rw">
                             <option value="">Pilih</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -202,7 +197,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="rt" class="form-label bold mt-3"><strong>RT</strong></label>
-                        <select class="form-select"" id="rt" name="rt">
+                        <select class="form-select" id="rt" name="rt">
                             <option value="">Pilih</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -261,12 +256,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="statusdalamperkawinan" class="form-label bold mt-3"><strong>Status Dalam Perkawinan</strong></label>
-                        <select class="form-select"" id="statusdalamperkawinan" name="statusdalamperkawinan">
+                        <select class="form-select" id="statusdalamperkawinan" name="statusdalamperkawinan">
                             <option value="">Pilih</option>
-                            <option value="menikah">Menikah</option>
-                            <option value="belumenikah">Belum Menikah</option>
-                            <option value="ceraimati">Cerai Mati</option>
-                            <option value="ceraihidup">Cerai Hidup</option>
+                            <option value="Menikah">Menikah</option>
+                            <option value="Belum Menikah">Belum Menikah</option>
+                            <option value="Cerai Mati">Cerai Mati</option>
+                            <option value="Cerai Hidup">Cerai Hidup</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -475,7 +470,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label bold mt-3"><strong>Jika ya, jumlah jaminan keluarga</strong></label>
+                        <label class="form-label bold mt-3"><strong>Jika ya, jumlah jaminan keluarga </strong>*(Isi 0 jika tidak ada)</label>
                         <div class="d-flex flex-column">
                             <label for="jumlahSatu">
                                 <input type="radio" id="jumlahSatu" name="jumlahJaminan" value="1" style="margin-right: 5px;">1

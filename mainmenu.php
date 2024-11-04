@@ -1,9 +1,25 @@
+<?php
+// Mulai session
+session_start();
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['username'])) {
+    // Jika belum login, alihkan ke halaman login
+    header("Location: login.php");
+    exit();
+}
+
+// Ambil informasi pengguna yang sedang login
+$username = $_SESSION['username'];
+$nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : ''; // Ambil nama dari session
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> HALAMAN UTAMA SIPEDAS BERANI</title>
+    <title>HALAMAN UTAMA SIPEDAS BERANI</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -14,9 +30,11 @@
             <h1>SIPEDAS BERANI</h1>
         </div>
         <div class="header-right">
-            <!-- <span>Login sebagai: </span> -->
-            
-            <span>Login sebagai: User</span>
+            <?php if (!empty($username)): ?>
+                <span>Hallo : <?php echo htmlspecialchars($nama); ?></span> <!-- Tampilkan nama pengguna -->
+            <?php else: ?>
+                <span>Login sebagai:</span>
+            <?php endif; ?>
         </div>
     </header>
     
@@ -70,9 +88,19 @@
                 </div>
             </div>
             <a href="settings.php" class="sidenav-btn sidenav-item-btn">Pengaturan</a>
-            <a href="login.php" class="sidenav-btn sidenav-item-btn">Logout</a>
+            <a href="ganti_password.php" class="sidenav-btn sidenav-item-btn">Ganti Password</a>
+            <a href="#" class="sidenav-btn sidenav-item-btn" onclick="confirmLogout()">Logout</a> <!-- Ubah ke konfirmasi logout -->
         </div>
     </div>
+
+    <script>
+    function confirmLogout() {
+        var confirmation = confirm("Apakah Anda ingin logout?");
+        if (confirmation) {
+            window.location.href = "logout.php"; // Arahkan ke logout.php jika konfirmasi
+        }
+    }
+    </script>
 
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>

@@ -15,7 +15,7 @@ body {
 /* tagHEADER */
 
 .header {
-    background: linear-gradient(to right, #5dc4ff, #6c74e2);
+    background: linear-gradient(to right, #5dc4ff, #34ffb1);
     color: var(--darkgray);
     position: fixed; /* Keep the header fixed */
     top: 0; /* Position at the top */
@@ -283,4 +283,53 @@ body {
         padding: 0; /* Remove padding for the body */
     }
 
-    
+
+
+
+.span-img {
+    max-width: 15px; /* Set a specific max width for the image */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.btn-custom1{
+    padding: 0;
+    height: 30px;
+    width: 30px;
+    border-width: 2px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tbl-item-button{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.alert-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050; /* Bootstrap modal z-index */
+    width: 90%;
+    max-width: 600px;
+}
+
+.modal-body{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-body label{
+    font-weight: 600;
+}
+
+.edit-form-span{
+    display: flex;
+    color: white;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    background-color: var(--blue);
+}
