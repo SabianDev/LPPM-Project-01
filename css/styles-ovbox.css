@@ -1,0 +1,22 @@
+:root {
+    --white: #ffffff;
+    --blue: #36689e;
+    --darkgray : #333;
+}
+
+
+.contents-right {
+    margin-left: 120px; /* Menjauhkan dari sidenav */
+    padding: 20px;
+    overflow-y: auto; /* Supaya konten yang panjang bisa di-scroll */
+}
+
+.card p{
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.card h2{
+    font-weight: 700;
+    font-size: 3em;
+}

@@ -146,13 +146,9 @@ body {
     /* tagMAINCTN */
 
     .main-content {
-        /* background-color: blue; */
-        margin-top: 80px; /* Add margin to prevent overlap with the header */
+        margin-top: 80px;
         display: flex;
-        width: 40vw;
-        height: 100vh;
-        align-items: center;
-        flex-direction: column;
+        width: 100vw;
     }
 
     /* tagFORM */
@@ -332,4 +328,17 @@ body {
     border-radius: 10px;
     font-weight: 600;
     background-color: var(--blue);
+}
+
+.ganti-pass{
+    display: flex;
+    gap: 20px;
+}
+
+.ganti-nama{
+    width: 80%;
+}
+
+.ganti-id{
+    width: 20%;
 }
