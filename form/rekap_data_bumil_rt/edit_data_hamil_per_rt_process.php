@@ -1,5 +1,27 @@
 <?php
-session_start();
+    include('../connect.php');
+    session_start(); // Mulai session di bagian atas
+
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['username'])) {
+        // Jika belum login, alihkan ke halaman login
+        header("Location: ../login.php");
+        exit();
+    }
+
+    // Cek apakah pengguna yang login adalah admin
+    $username = $_SESSION['username'];
+    $sql = "SELECT * FROM data_admin WHERE username = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 0) {
+        // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
+        header("Location: ../logout.php");
+        exit();
+    }
+?>
+
+<?php
 include '../connect.php'; // Include your database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

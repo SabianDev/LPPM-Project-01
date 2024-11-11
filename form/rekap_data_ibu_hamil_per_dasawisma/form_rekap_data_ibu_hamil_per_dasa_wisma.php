@@ -1,6 +1,49 @@
 <?php
-ob_start(); // Mulai output buffering
+    include('../connect.php');
+    session_start(); // Mulai session di bagian atas
+
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['username'])) {
+        // Jika belum login, alihkan ke halaman login
+        header("Location: ../login.php");
+        exit();
+    }
+
+    // Cek apakah pengguna yang login adalah admin
+    $username = $_SESSION['username'];
+    $sql = "SELECT * FROM data_admin WHERE username = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 0) {
+        // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
+        header("Location: ../logout.php");
+        exit();
+    }
 ?>
+
+<?php
+    include('../connect.php');
+
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['username'])) {
+        // Jika belum login, alihkan ke halaman login
+        header("Location: ../login.php");
+        exit();
+    }
+
+    // Cek apakah pengguna yang login adalah admin
+    $username = $_SESSION['username'];
+    $sql = "SELECT * FROM data_admin WHERE username = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 0) {
+        // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
+        header("Location: ../logout.php");
+        exit();
+    }
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,9 +78,11 @@ ob_start(); // Mulai output buffering
     
     <header class="header">
         <div class="header-left">
-            <h1><a href="../mainmenu-admin.php">SIPEDAS BERANI</a></h1>
+        <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
+            <h1>SIPEDAS BERANI (ADMIN)</h1>
         </div>
         <div class="header-right">
+            
         </div>
     </header>
     
@@ -64,7 +109,7 @@ ob_start(); // Mulai output buffering
                 <h2>TAMBAH : REKAP DATA IBU HAMIL PER DASAWISMA</h2>
             </div>
             
-            <form method="POST" action="">
+            <form method="POST" action="" onsubmit="return confirmSubmit()">
                 
                 <!-- FORM 1 -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -319,6 +364,11 @@ ob_start(); // Mulai output buffering
     
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script>
+    function confirmSubmit() {
+        return confirm("Apakah Anda yakin ingin mengirim form?");
+        }
+    </script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -361,6 +411,8 @@ ob_start(); // Mulai output buffering
             showSection(currentSectionIndex);
         });
     </script>
+
+    
 
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -440,6 +492,16 @@ ob_start(); // Mulai output buffering
     }
     ?>
 
+    <script>
+    // JavaScript to clear form data on page load
+    window.onload = function() {
+        var form = document.querySelector('form');
+        if (form) {
+            form.reset();
+        }
+    };
+    </script>
+
     <!-- Modal Notifikasi -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -458,8 +520,6 @@ ob_start(); // Mulai output buffering
       </div>
     </div>
 
-<?php
-ob_end_flush(); // Mengakhiri output buffering
-?>
+
 </body>
 </html>

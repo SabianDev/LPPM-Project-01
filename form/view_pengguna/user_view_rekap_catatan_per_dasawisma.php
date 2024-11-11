@@ -1,5 +1,13 @@
 <?php
     include '../connect.php'; // Koneksi ke database
+    session_start(); // Mulai session di bagian atas
+
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['username'])) {
+        // Jika belum login, alihkan ke halaman login
+        header("Location: ../login.php");
+        exit();
+    }
 
     // Ganti sesuai kebutuhan
     $sql = "SELECT * FROM rekap_catatan_per_dasawisma";
@@ -24,7 +32,8 @@
 
     <header class="header">
         <div class="header-left">
-            <h3>REKAP CATATAN DASA WISMA (Read Only)</h3>
+            <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
+            <h3>REKAP CATATAN DASA WISMA (View Only)</h3>
         </div>
         <div class="header-right">
             <a href="../mainmenu.php" class="btn btn-light">Kembali</a> <!-- Button to go back to mainmenu.php -->

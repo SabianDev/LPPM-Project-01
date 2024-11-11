@@ -23,26 +23,35 @@ $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : '';
     <title>HALAMAN UTAMA SIPEDAS BERANI</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
     <header class="header">
         <div class="header-left">
+            <img src="../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
             <h1>SIPEDAS BERANI</h1>
         </div>
         <div class="header-right">
-    <?php if (!empty($username)): ?>
-        <span>Halo, <?php echo htmlspecialchars($nama); ?></span> <!-- Tampilkan nama pengguna -->
-        <?php if ($username === 'admin'): ?> <!-- Cek jika pengguna adalah admin -->
-            <span>Admin</span> <!-- Tampilkan label admin -->
-        <?php endif; ?>
-    <?php else: ?>
-        <span>Login sebagai:</span>
-    <?php endif; ?>
-</div>
+            <?php if (!empty($username)): ?>
+                <span>Halo, <?php echo htmlspecialchars($nama); ?></span> <!-- Tampilkan nama pengguna -->
+                <?php if ($username === 'admin'): ?> <!-- Cek jika pengguna adalah admin -->
+                    <span>Admin</span> <!-- Tampilkan label admin -->
+                <?php endif; ?>
+            <?php else: ?>
+                <span>Login sebagai:</span>
+            <?php endif; ?>
+        </div>
     </header>
     
-    <div class="main-content">
+    <div class="mainmenu-content">
         <div class="sidenav">
             
             <!-- VIEW - USER -->
@@ -73,6 +82,7 @@ $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : '';
             <a href="ganti_password.php" class="sidenav-btn sidenav-item-btn">Ganti Password</a>
             <a href="#" class="sidenav-btn sidenav-item-btn" onclick="confirmLogout()">Logout</a> <!-- Ubah ke konfirmasi logout -->
         </div>
+        
     </div>
 
     <script>
@@ -85,5 +95,10 @@ $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : '';
     </script>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
+
+    
+    <footer class="footer bg-white text-black text-center py-3">
+        <p>&copy; 2024 LPPM PIKSI GANESHA. All rights reserved.</p>
+    </footer>
 </body>
 </html>

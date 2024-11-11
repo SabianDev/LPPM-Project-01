@@ -1,5 +1,27 @@
 <?php
-session_start();
+    include('../connect.php');
+    session_start(); // Mulai session di bagian atas
+
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['username'])) {
+        // Jika belum login, alihkan ke halaman login
+        header("Location: ../login.php");
+        exit();
+    }
+
+    // Cek apakah pengguna yang login adalah admin
+    $username = $_SESSION['username'];
+    $sql = "SELECT * FROM data_admin WHERE username = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 0) {
+        // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
+        header("Location: ../logout.php");
+        exit();
+    }
+?>
+
+<?php
 
 // Cek apakah ID diset di URL
 if (isset($_GET['id'])) {
@@ -163,10 +185,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Konten HTML Anda di sini -->
     <header class="header">
         <div class="header-left">
-            <h1>SIPEDAS BERANI</h1>
+            <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
+            <h1>SIPEDAS BERANI (ADMIN)</h1>
         </div>
         <div class="header-right">
-            <!-- <span>Login sebagai: User</span> -->
+            
         </div>
     </header>
     

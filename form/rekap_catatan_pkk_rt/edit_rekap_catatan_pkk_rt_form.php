@@ -1,6 +1,27 @@
 <?php
-session_start(); // Memulai sesi di bagian atas
+    include('../connect.php');
+    session_start(); // Mulai session di bagian atas
 
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['username'])) {
+        // Jika belum login, alihkan ke halaman login
+        header("Location: ../login.php");
+        exit();
+    }
+
+    // Cek apakah pengguna yang login adalah admin
+    $username = $_SESSION['username'];
+    $sql = "SELECT * FROM data_admin WHERE username = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 0) {
+        // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
+        header("Location: ../logout.php");
+        exit();
+    }
+?>
+
+<?php
 // Cek apakah ID diset di URL
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -209,10 +230,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     <header class="header">
         <div class="header-left">
+            <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
             <h3>EDIT : REKAP CATATAN PKK RT</h3>
         </div>
         <div class="header-right">
-            <a href="edit_rekap_catatan_pkk_rt.php" class="btn btn-light">Kembali</a> <!-- Button to go back to mainmenu.php -->
+            
         </div>
     </header>
     

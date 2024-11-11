@@ -9,6 +9,17 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+// Cek apakah pengguna yang login adalah admin
+$username = $_SESSION['username'];
+$sql = "SELECT * FROM data_admin WHERE username = '$username'";
+$result = $conn->query($sql);
+
+if ($result->num_rows == 0) {
+    // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
+    header("Location: logout.php");
+    exit();
+}
+
 // Ambil username dari session
 $username = $_SESSION['username'];
 $nama_user = $_SESSION['nama'];
@@ -24,12 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Password baru dan konfirmasi password tidak cocok.";
     } else {
         // Query untuk mengecek password saat ini
-        $query = "SELECT * FROM data_user WHERE username='$username' AND password='$currentPassword'";
+        $query = "SELECT * FROM data_admin WHERE username='$username' AND password='$currentPassword'";
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
             // Update password baru
-            $updateQuery = "UPDATE data_user SET password='$newPassword' WHERE username='$username'";
+            $updateQuery = "UPDATE data_admin SET password='$newPassword' WHERE username='$username'";
             if ($conn->query($updateQuery) === TRUE) {
                 $success = "Password berhasil diubah.";
             } else {
@@ -65,12 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php endif; ?>
     <div class="mb-3 ganti-pass">
         <div class="mb-3 mr-3 ganti-id">
-            <label for="nama_user" class="form-label">NIK Pengguna</label>
-            <input type="text" class="form-control" id="id_user" name="id_user" value="<?php echo htmlspecialchars($username); ?>" readonly>
-        </div>
-        <div class="mb-3 ganti-nama">
             <label for="nama_user" class="form-label">Nama Pengguna</label>
-            <input type="text" class="form-control" id="nama_user" name="nama_user" value="<?php echo htmlspecialchars($nama_user); ?>" readonly>
+            <input type="text" class="form-control" id="id_user" name="id_user" value="<?php echo htmlspecialchars($username); ?>" readonly>
         </div>
     </div>
     <form action="" method="post">

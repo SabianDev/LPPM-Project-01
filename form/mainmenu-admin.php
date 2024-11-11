@@ -44,12 +44,21 @@ if ($result->num_rows === 0) {
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/styles-ovbox.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
     <header class="header">
         <div class="header-left">
-            <h1>SIPEDAS BERANI (Admin Mode)</h1>
+            <img src="../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
+            <h1>SIPEDAS BERANI (ADMIN)</h1>
         </div>
         <div class="header-right">
             <?php if (!empty($username)): ?>
@@ -63,7 +72,7 @@ if ($result->num_rows === 0) {
         </div>
     </header>
     
-    <div class="main-content">
+    <div class="mainmenu-content">
         <div class="sidenav">
             <!-- FORM -->
             <div class="accordion" id="accordionExample">
@@ -143,7 +152,7 @@ if ($result->num_rows === 0) {
         <h2>Jumlah Data :</h2>
         <div class="contents-right">
             <!-- Card 1 -->
-            <div class="container">
+            <div class="container mt-5">
                 <!-- BARIS 1 -->
                 <div class="row" id="contents-right">
                     <!-- DATA KELUARGA -->
@@ -326,7 +335,7 @@ if ($result->num_rows === 0) {
                                         }
                                     ?>
                                 </h2>
-                                <p class="card-text">Jumlah Pengguna</p>
+                                <p class="card-text">Jumlah Penduduk Ter-Registrasi</p>
                             </div>
                         </div>
                     </div>
@@ -347,5 +356,8 @@ if ($result->num_rows === 0) {
     </script>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
+    <footer class="footer bg-white text-black text-center py-3">
+        <p>&copy; 2024 LPPM PIKSI GANESHA. All rights reserved.</p>
+    </footer>
 </body>
 </html>

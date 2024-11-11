@@ -11,6 +11,12 @@ body {
     align-items: center; /* Center vertically */
 }
 
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
 
 /* tagHEADER */
 
@@ -29,8 +35,16 @@ body {
     align-items: center; /* Center items vertically */
 }
 
+.header-logo {
+    height: auto; /* Maintain aspect ratio */
+    max-height: 3em; /* Ensure it doesn't exceed the container */
+}
+
 .header-left {
     flex: 1; /* Allow left section to take available space */
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 20px;
 }
 
 .header-right {
@@ -62,7 +76,7 @@ body {
     background-color: #f8f9fa; /* Light background */
     padding: 10px; /* Padding inside the sidenav */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    z-index: 1000; /* Ensure it stays above other content */
+    z-index: 0; /* Ensure it stays above other content */
 }
 
 .sidenav-btn {
@@ -146,6 +160,15 @@ body {
     /* tagMAINCTN */
 
     .main-content {
+        margin-top: 80px; /* Add margin to prevent overlap with the header */
+        display: flex;
+        width: 40vw;
+        height: 100vh;
+        align-items: center;
+        flex-direction: column;
+    }
+    .mainmenu-content {
+        flex: 1;
         margin-top: 80px;
         display: flex;
         width: 100vw;

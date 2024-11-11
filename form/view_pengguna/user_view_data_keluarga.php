@@ -1,6 +1,13 @@
 <?php
-    include('../connect.php');
-    // Koneksi ke database
+    include('../connect.php');// Koneksi ke database
+    session_start(); // Mulai session di bagian atas
+
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['username'])) {
+        // Jika belum login, alihkan ke halaman login
+        header("Location: ../login.php");
+        exit();
+    }
 
     // Ambil data dari tabel
     $sql = "SELECT * FROM data_keluarga";
@@ -25,6 +32,7 @@
 
     <header class="header">
         <div class="header-left">
+            <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
             <h3>DATA KELUARGA (View Only)</h3>
         </div>
         <div class="header-right">

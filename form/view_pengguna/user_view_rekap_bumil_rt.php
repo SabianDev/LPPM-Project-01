@@ -1,5 +1,13 @@
 <?php
     include '../connect.php'; // Koneksi ke database
+    session_start(); // Mulai session di bagian atas
+
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['username'])) {
+        // Jika belum login, alihkan ke halaman login
+        header("Location: ../login.php");
+        exit();
+    }
 
     // Ganti sesuai kebutuhan
     $sql = "SELECT * FROM form_rekap_bumil_rt";
@@ -24,6 +32,7 @@
 
     <header class="header">
         <div class="header-left">
+        <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
             <h3>REKAP DATA IBU HAMIL PER RT (View Only)</h3>
         </div>
         <div class="header-right">

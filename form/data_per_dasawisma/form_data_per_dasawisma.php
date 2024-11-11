@@ -3,6 +3,24 @@ session_start(); // Memulai session
 
 include '../connect.php'; // Menghubungkan ke database
 
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['username'])) {
+    // Jika belum login, alihkan ke halaman login
+    header("Location: ../login.php");
+    exit();
+}
+
+// Cek apakah pengguna yang login adalah admin
+$username = $_SESSION['username'];
+$sql = "SELECT * FROM data_admin WHERE username = '$username'";
+$result = $conn->query($sql);
+
+if ($result->num_rows == 0) {
+    // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
+    header("Location: ../logout.php");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Cek apakah semua input yang diperlukan sudah diisi
     $requiredFields = [
@@ -155,10 +173,11 @@ if (isset($_SESSION['success'])) {
     
     <header class="header">
         <div class="header-left">
-            <h1>SIPEDAS BERANI</h1>
+        <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
+            <h1>SIPEDAS BERANI (ADMIN)</h1>
         </div>
         <div class="header-right">
-            <!-- <span>Login sebagai: User</span> -->
+            
         </div>
     </header>
     
@@ -188,7 +207,7 @@ if (isset($_SESSION['success'])) {
                 <h2>CATATAN KELUARGA KECAMATAN BATUNUNGGAL KOTA BANDUNG PROVINSI JAWA BARAT</h2>
             </div>
             
-            <form method="POST" action="form_data_per_dasawisma.php">
+            <form method="POST" action="form_data_per_dasawisma.php" onsubmit="return confirmSubmit()">
                 
                 <!-- FORM 1 -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -531,6 +550,12 @@ if (isset($_SESSION['success'])) {
     
 
     <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    function confirmSubmit() {
+        return confirm("Apakah Anda yakin ingin mengirim form?");
+    }
+    </script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -578,6 +603,16 @@ if (isset($_SESSION['success'])) {
             const checkboxInput = document.getElementById('sumber_air_lainnya');
             checkboxInput.value = textInput.value; // Set the checkbox's value to the text input's value
         }
+    </script>
+
+    <script>
+    // JavaScript to clear form data on page load
+    window.onload = function() {
+        var form = document.querySelector('form');
+        if (form) {
+            form.reset();
+        }
+    };
     </script>
 
     <!-- Modal Notifikasi -->
