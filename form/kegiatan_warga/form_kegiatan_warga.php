@@ -1,26 +1,5 @@
 <?php
-    include('../connect.php');
-    session_start(); // Mulai session di bagian atas
-
-    // Cek apakah pengguna sudah login
-    if (!isset($_SESSION['username'])) {
-        // Jika belum login, alihkan ke halaman login
-        header("Location: ../login.php");
-        exit();
-    }
-
-    // Cek apakah pengguna yang login adalah admin
-    $username = $_SESSION['username'];
-    $sql = "SELECT * FROM data_admin WHERE username = '$username'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows == 0) {
-        // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
-        header("Location: ../logout.php");
-        exit();
-    }
-?>
-<?php
+session_start(); // Pastikan session dimulai
 
 // Sertakan file koneksi database
 include('../connect.php');
@@ -127,11 +106,9 @@ if (isset($_SESSION['success_message'])) {
     
     <header class="header">
         <div class="header-left">
-        <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
-            <h1>SIPEDAS BERANI (ADMIN)</h1>
+            <h1><a href="../mainmenu.php">SIPEDAS BERANI</a></h1>
         </div>
         <div class="header-right">
-            
         </div>
     </header>
     
@@ -155,7 +132,7 @@ if (isset($_SESSION['success_message'])) {
                 <h2>TAMBAH : KEGIATAN WARGA</h2>
             </div>
             
-            <form method="POST" action="" id="kegiatanForm" onsubmit="return confirmSubmit()">
+            <form method="POST" action="" id="kegiatanForm">
                 
                 <!-- FORM 1 -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -391,12 +368,6 @@ if (isset($_SESSION['success_message'])) {
     
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
-
-    <script>
-    function confirmSubmit() {
-        return confirm("Apakah Anda yakin ingin mengirim form?");
-        }
-    </script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -457,7 +428,7 @@ if (isset($_SESSION['success_message'])) {
         }
     </script>
 
-    <script>
+<script>
         //Auto hapus pilihan lainnya kalau pindah radio, dan sebaliknya.
         //selectXXRadio() buat ngecek kalau radio lainnya sudah dicek atau belum.
         //xxStatusChange() buat reset value radio, selalu sebelum selectXXRadio()
@@ -499,16 +470,6 @@ if (isset($_SESSION['success_message'])) {
             otherRadio.checked = true;
             handleChangeRajut();
         }
-    </script>
-
-    <script>
-    // JavaScript to clear form data on page load
-    window.onload = function() {
-        var form = document.querySelector('form');
-        if (form) {
-            form.reset();
-        }
-    };
     </script>
 
     <!-- Modal Notifikasi -->

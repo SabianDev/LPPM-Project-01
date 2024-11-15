@@ -89,10 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
         </div>
         <button type="submit" class="btn btn-primary">Ubah Password</button>
-        <button type="submit" class="btn btn-primary" onclick="location.href='mainmenu.php'">Kembali</button>
+        <input type="button" class="btn btn-primary" onclick="location.href='mainmenu.php'" value="Kembali">
     </form>
 </div>
 
-<script src="js/bootstrap.bundle.min.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

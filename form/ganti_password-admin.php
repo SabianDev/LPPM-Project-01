@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
         </div>
         <button type="submit" class="btn btn-primary">Ubah Password</button>
-        <button type="submit" class="btn btn-primary" onclick="location.href='mainmenu-admin.php'">Kembali</button>
+        <input type="button" class="btn btn-primary" onclick="location.href='mainmenu-admin.php'" value="Kembali">
     </form>
 </div>
 

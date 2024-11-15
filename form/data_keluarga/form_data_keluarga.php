@@ -1,28 +1,3 @@
-
-
-<?php
-    include('../connect.php');
-    session_start(); // Mulai session di bagian atas
-
-    // Cek apakah pengguna sudah login
-    if (!isset($_SESSION['username'])) {
-        // Jika belum login, alihkan ke halaman login
-        header("Location: ../login.php");
-        exit();
-    }
-
-    // Cek apakah pengguna yang login adalah admin
-    $username = $_SESSION['username'];
-    $sql = "SELECT * FROM data_admin WHERE username = '$username'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows == 0) {
-        // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
-        header("Location: ../logout.php");
-        exit();
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +23,14 @@
         $formTarget2 = "form-2";
     ?>
     <?php
+    session_start(); // Mulai session di bagian atas
+
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['username'])) {
+        // Jika belum login, alihkan ke halaman login
+        header("Location: login.php");
+        exit();
+    }
 
     // Ambil informasi pengguna yang sedang login
     $username = $_SESSION['username'];
@@ -127,6 +110,10 @@
             $aktifitas_up2k = isset($_POST['up2k']) ? $_POST['up2k'] : 'Tidak'; // Capture value
             $aktifitas_usaha_kesling = isset($_POST['usahaKesling']) ? $_POST['usahaKesling'] : 'Tidak'; // Capture value
 
+            // Koneksi ke database
+            include('../connect.php');
+
+
             // Query untuk memasukkan data
             $sql = "INSERT INTO data_keluarga (kelurahan, rw, rt, dasa_wisma, nama_kepala_rumah_tangga, no_reg, nama_anggota_keluarga, status_dalam_keluarga, status_dalam_perkawinan, jenis_kelamin, tempat_lahir, tanggal_lahir, umur, pendidikan_terakhir, pekerjaan, kelompok_umur, bumil, ibu_menyusui, pasangan_subur, wanita_usia_subur, apa_3buta, makanan_pokok_sehari_hari, mempunyai_jaminan_keluarga, jumlah_jaminan_keluarga, sumber_air_keluarga, tempat_pembuangan_sampah, saluran_pembuangan_air_limbah, stiker_p4k, kriteria_rumah, aktifitas_up2k, aktifitas_usaha_kesling) 
             VALUES ('$kelurahan', '$rw', '$rt', '$dasa_wisma', '$nama_kepala_rumah_tangga', '$no_reg', '$nama_anggota_keluarga', '$status_dalam_keluarga', '$status_dalam_perkawinan', '$jenis_kelamin', '$tempat_lahir', '$tanggal_lahir', '$umur', '$pendidikan_terakhir', '$pekerjaan', '$kelompok_umur', '$bumil', '$ibu_menyusui', '$pasangan_subur', '$wanita_usia_subur', '$apa_3_buta', '$makanan_pokok_sehari_hari', '$mempunyai_jaminan_keluarga', '$jumlah_jaminan_keluarga', '$sumber_air_keluarga', '$memiliki_tempat_pembuangan_sampah', '$memiliki_saluran_pembuangan_air_limbah', '$menempel_stiker_p4k', '$kriteria_rumah', '$aktifitas_up2k', '$aktifitas_usaha_kesling')";
@@ -154,8 +141,7 @@
 <body class="bg-light">
     
     <header class="header">
-        <div class="header-left">
-            <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
+    <div class="header-left">
             <h1>SIPEDAS BERANI</h1>
         </div>
         <div class="header-right">
@@ -181,7 +167,7 @@
                 <h2>TAMBAH : DATA KELUARGA</h2>
             </div>
             
-            <form method="post" action="" onsubmit="return confirmSubmit()">
+            <form method="post" action="">
                 
                 <!-- FORM 1 -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -652,7 +638,6 @@
             </div>
         </div>
     </div>
-
     
 
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -759,7 +744,7 @@
         }
     </script>
 
-    <script>
+   <script>
         function handleStatusChange() {
             const otherInput = document.getElementById('statusdalamkeluargaLainnyaText');
             const otherRadio = document.getElementById('statusLainnya');
@@ -892,21 +877,6 @@
             up2kRadio.checked = true; // Pilih radio "Lainnya"
             handleUp2KChange(); // Panggil fungsi untuk mengatur fokus dan mengosongkan input jika perlu
         }
-    </script>
-    <script>
-        // JavaScript to clear form data on page load
-        window.onload = function() {
-            var form = document.querySelector('form');
-            if (form) {
-                form.reset();
-            }
-        };
-    </script>
-    <script>
-        function confirmSubmit() {
-            return confirm("Apakah Anda yakin ingin mengirim form?");
-        }
-    </script>
-
+   </script>
 </body>
 </html>

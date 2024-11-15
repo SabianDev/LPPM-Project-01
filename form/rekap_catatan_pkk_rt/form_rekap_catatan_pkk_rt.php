@@ -1,26 +1,3 @@
-<?php
-    include('../connect.php');
-    session_start(); // Mulai session di bagian atas
-
-    // Cek apakah pengguna sudah login
-    if (!isset($_SESSION['username'])) {
-        // Jika belum login, alihkan ke halaman login
-        header("Location: ../login.php");
-        exit();
-    }
-
-    // Cek apakah pengguna yang login adalah admin
-    $username = $_SESSION['username'];
-    $sql = "SELECT * FROM data_admin WHERE username = '$username'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows == 0) {
-        // Jika bukan admin, jalankan logout.php dan alihkan ke login.php
-        header("Location: ../logout.php");
-        exit();
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,11 +37,10 @@
     
     <header class="header">
         <div class="header-left">
-            <img src="../../img/logo_img.png" alt="SIPEDAS BERANI Logo" class="header-logo">
-            <h1>SIPEDAS BERANI (ADMIN)</h1>
+            <h1>SIPEDAS BERANI</h1>
         </div>
         <div class="header-right">
-            
+            <!-- <span>Login sebagai: User</span> -->
         </div>
     </header>
     
@@ -168,7 +144,7 @@
             }
             ?>
 
-            <form method="POST" action="" onsubmit="return confirmSubmit()">
+            <form method="POST" action="">
                 
                 <!-- Jumlah anggota keluarga -->
                 <div class="ctn-form form-section active" id="<?php echo $formTarget1; ?>">
@@ -475,12 +451,6 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     
     <script>
-        function confirmSubmit() {
-            return confirm("Apakah Anda yakin ingin mengirim form?");
-        }
-    </script>
-    
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('.form-section');
             const navLinks = document.querySelectorAll('.nav-link');
@@ -569,16 +539,6 @@
         document.getElementById('closeModalButton').addEventListener('click', function() {
             window.location.href = 'view_rekap_catatan_pkk_rt.php';
         });
-    </script>
-
-    <script>
-    // JavaScript to clear form data on page load
-    window.onload = function() {
-        var form = document.querySelector('form');
-        if (form) {
-            form.reset();
-        }
-    };
     </script>
 </body>
 </html>
